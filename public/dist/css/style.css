@@ -1,0 +1,402 @@
+html,
+body {
+    background-color: #d7cbbf;
+    font-family: "Poppins";
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    scroll-behavior: smooth;
+}
+
+@font-face {
+    font-family: "Merriweather";
+    src: url("../assets/fonts/Merriweather-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("../assets/fonts/Poppins-Regular.ttf");
+}
+
+a {
+    text-decoration: none;
+}
+
+#nav{
+    z-index: 2;
+}
+
+#hero {
+    width: 100%;
+}
+
+#content {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    transition: 0.2s;
+}
+
+.custom-navbar {
+    width: 85%;
+    margin:auto;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    width: fit-content;
+    height: 80px;
+    width: 80px;
+}
+
+.navbar-toggler {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.navbar-toggler-icon {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: black;
+    margin: 6px 0;
+    transition: 0.3s;
+}
+
+.custom-navbar-list {
+    width: 50%;
+    margin: auto;
+    border-radius: 100px;
+    border: 2px #b70fb9 solid;
+    padding: 2vh;
+    display: flex;
+    justify-content: space-around;
+    transition: display 0.3s ease;
+}
+
+.navbar-item {
+    color: black;
+    transition: 0.3s;
+}
+
+.navbar-item:hover {
+    color: white;
+    background-color: #b70fb9;
+    border-radius: 2px;
+    padding: 0px 5px;
+}
+
+.title-brand {
+    color: #b70fb9;
+    font-family: "Merriweather";
+}
+
+.title-brand span {
+    font-family: "Merriweather";
+    color: #671282;
+}
+
+.jumbotron {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.jumbotron:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/img/blur-background2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    filter: blur(10px); 
+    opacity: 0.6; 
+    z-index: 1;
+}
+
+.jumbotron .main-left,
+.jumbotron .main-right {
+    position: relative;
+    z-index: 2; 
+}
+
+.main-left,
+.main-right {
+    flex: 1;
+    padding: 20px;
+    z-index: 2;
+}
+
+.main-left {
+    max-width: 75%;
+}
+
+.main-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-background {
+    background: linear-gradient(#b70fb9, #671282);
+    border-radius: 100px 1000px 100px 2100px;
+    height: 100%;
+    max-width: 450px;
+    z-index: 1;
+    transition: 0.2s;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.banner {
+    position: relative;
+    margin: 0px;
+    min-height: 400px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../assets/img/kabah-background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.banner::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.caption {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    text-align: center;
+    color: #000;
+    justify-content: center;
+}
+
+.caption-header {
+    font-family: "Merriweather";
+    color: #fff;
+}
+
+.about-button {
+    background-color: transparent;
+    border: #000 2px solid;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 50px;
+    width: 40%;
+    margin: 5px auto;
+    transition: 0.2s;
+}
+
+.about-button:hover {
+    background-color: #b70fb9;
+    border: #fff 2px solid;
+    color: #fff;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 50px;
+    width: 40%;
+}
+
+.contact-button {
+    background-color: transparent;
+    border: #fff 2px solid;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 50px;
+    width: 40%;
+    margin: 5px auto;
+    transition: 0.2s;
+}
+
+.contact-button:hover {
+    background-color: #fff;
+    border: #b70fb9 2px solid;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 50px;
+    width: 40%;
+    margin: 5px auto;
+}
+
+.contact-button .anchor-button {
+    color: #fff;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.contact-button:hover .anchor-button {
+    color: #b70fb9;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.about-wrapper {
+    width: 60%;
+}
+
+#slideshow-btn:hover span svg{
+    color: #fff;
+}
+
+@media only screen and (max-width: 1024px) {
+    .contact-button {
+        width: 30%;
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 30px;
+    }
+
+    .contact-button:hover {
+        padding: 10px 20px;
+        width: 30%;
+        font-size: 14px;
+        border-radius: 30px;
+    }
+
+    #content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .main-left,
+    .main-right {
+        max-width: 100%;
+        padding: 10px;
+        z-index: 2;
+    }
+
+    .main-left {
+        order: 1;
+    }
+
+    .main-right {
+        order: 2;
+    }
+
+    .custom-background {
+        max-width: 300px;
+        border-radius: 75% 25% 75% 25% / 25% 75% 25% 75% ;
+        z-index: 1;
+        margin-top: 10%;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    }
+}
+
+@media (max-width: 992px) {
+    .custom-navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .custom-navbar-list {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+        margin-top: 10px;
+        border: none;
+        align-items: flex-start;
+    }
+
+    .navbar-item {
+        padding: 10px 0;
+        width: 100%;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    .navbar-toggler {
+        display: block;
+        position: relative; 
+        align-self: flex-end; 
+        margin-top: 10px;
+    }
+
+    .navbar-toggler[aria-expanded="true"] + .custom-navbar-list {
+        display: flex;
+    }
+
+    .logo{
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    #content {
+        display: flex;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .main-left {
+        padding: 0px;
+        text-align: center !important;
+    }
+    .main-right {
+        text-align: center !important;
+    }
+
+    .logo {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .custom-background {
+        max-width: 250px;
+    }
+}
