@@ -11,6 +11,7 @@
     <style>
         @font-face{
             font-family: 'Poppins'
+            src: url
         }
     </style>
 </head>
@@ -31,7 +32,7 @@
                             </path>
                         </svg>
                     </button>
-                    <a href="https://flowbite.com" class="flex ms-2 md:me-24">
+                    <a href="/" class="flex ms-2 md:me-24">
                         <img src="{{URL::asset('dist/assets/img/kelimatu_logo.png')}}" class="h-8 me-3" alt="Kelimatu Logo" />
                         <span
                             class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Kelimatu</span>
