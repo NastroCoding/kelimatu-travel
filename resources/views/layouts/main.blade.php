@@ -13,8 +13,7 @@
     <link rel="shortcut icon" href="{{ URL::asset('dist/assets/ico/favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ URL::asset('dist/css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
-
-
+    <script src="https://kit.fontawesome.com/5cedab7152.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -46,6 +45,8 @@
                             & Misi</a>
                         <a href="/about-us#sejarah"
                             class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Sejarah</a>
+                        <a href="/about-us#galeri"
+                            class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Galeri</a>
                         <a href="/about-us#tim"
                             class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Tim</a>
                     </div>
@@ -53,7 +54,7 @@
 
                 <a href="#"
                     class="text-[#671282] font-bold transition duration-150 ease-in-out hover:text-[#b70fb9]">Services</a>
-                <a href="#"
+                <a href="/contact-us"
                     class="text-[#671282] font-bold transition duration-150 ease-in-out hover:text-[#b70fb9]">Kontak</a>
             </div>
             <!-- Hamburger Menu Button -->
@@ -78,13 +79,16 @@
                 <div id="about-dropdown"
                     class="hidden flex flex-col space-y-2 mt-2 bg-[#d7cbbf] rounded-md shadow-lg p-2">
                     <a href="/about-us" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Visi & Misi</a>
-                    <a href="/team" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Sejarah</a>
-                    <a href="/careers" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Tim</a>
+                    <a href="/about-us#sejarah"
+                        class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Sejarah</a>
+                    <a href="/about-us#galeri"
+                        class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Galeri</a>
+                    <a href="/about-us#tim" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Tim</a>
                 </div>
             </div>
 
             <a href="#" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Services</a>
-            <a href="#" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Contact</a>
+            <a href="/contact-us" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Contact</a>
         </div>
     </nav>
 
@@ -93,7 +97,7 @@
     </section>
 
     <button type="button" data-twe-ripple-init data-twe-ripple-color="light"
-        class="!fixed bottom-5 end-5 hidden rounded-full bg-[#671282] p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-[#b70fb9] hover:shadow-lg focus:bg-[#b70fb9] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#b70fb9] active:shadow-lg"
+        class="!fixed bottom-5 end-5 hidden rounded-full bg-[#671282] p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-[#b70fb9] hover:shadow-lg focus:bg-[#b70fb9] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#b70fb9] active:shadow-lg z-10"
         id="btn-back-to-top">
         <span class="[&>svg]:w-4">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
@@ -110,9 +114,10 @@
             <div class="md:flex md:justify-between">
                 <div class="mb-6 md:mb-0">
                     <a href="/" class="flex items-center">
-                        <img src="{{ URL::asset('dist/assets/img/kelimatu_logo.png') }}" class="h-20 me-3" alt="Kelimatu Logo" />
-                        <span
-                            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Kelimatu Travel & Tours</span>
+                        <img src="{{ URL::asset('dist/assets/img/kelimatu_logo.png') }}" class="h-20 me-3"
+                            alt="Kelimatu Logo" />
+                        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Kelimatu
+                            Travel</span>
                     </a>
                 </div>
                 <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">

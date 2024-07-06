@@ -8,7 +8,7 @@
             </h1>
             <p class="font-bold">Umroh adalah perjalanan hati dan jiwa. Bersama kami, wujudkan umroh impian Anda dengan penuh
                 kenyamanan</p>
-            <button class="about-button mt-5 font-bold"><a href="" class="about-anchor">Tentang Kami</a></button>
+            <a href="/about-us" class="about-anchor"><button class="about-button mt-5 font-bold">Tentang Kami</button></a>
         </div>
         <div class="main-right">
             <img src="{{ URL::asset('dist/assets/img/kaabah.png') }}" class="custom-background" alt="">
@@ -65,12 +65,71 @@
         <div class="caption">
             <h3 class="caption-header text-2xl">"Kalau Allah sudah memanggil, kalau Allah sudah mengundang, dengan cara
                 apapun kita pasti akan mengunjunginya, Insyaa Allah kita akan dimudahkan hadir ke Baitullah"</h3>
-            <button class="contact-button"><a href="" class="anchor-button">Kontak Kami</a></button>
+            <a href="/contact-us" class="anchor-button font-bold"><button class="contact-button text-white hover:text-[#b70fb9]">Kontak Kami</button></a>
         </div>
     </div>
-    <div class="flex w-full flex-col lg:flex-row">
-        <div class="card bg-base-300 rounded-box grid h-32 flex-grow place-items-center border">content</div>
-        <div class="card bg-base-300 rounded-box grid h-32 flex-grow place-items-center border">content</div>
+
+    <div class="bg-gray-100">
+        <div class="container mx-auto p-4">
+            <h1 class="text-3xl font-bold text-center my-8">Testimoni Para Jama'ah</h1>
+
+            <div class="relative flex items-center justify-center">
+                <!-- Left Arrow -->
+                <button id="prev" class="absolute left-5 p-2 z-10 bg-gray-300 rounded-full focus:outline-none">
+                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+
+                <div id="carousel" class="testimonial-carousel overflow-x-auto flex gap-4 px-10 lg:px-32 py-8 snap-x">
+                    @foreach ($testimonials as $testimonial)
+                        <div
+                            class="testimonial-item flex-shrink-0 w-80 md:w-96 bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center relative min-h-[400px]">
+                            <img src="{{ $testimonial->image ? Storage::url($testimonial->image) : 'https://via.placeholder.com/100'  }}" alt="Aqil"
+                                class="w-16 h-20 rounded-full overflow-hidden border-2 border-gray-200 mb-4 object-cover">
+                            <h3 class="font-semibold">{{ $testimonial->name }}</h3>
+                            <p class="text-gray-500">{{$testimonial->caption}}</p>
+                            <div class="relative mt-2">
+                                <i class="fas fa-quote-left -left-10 top-0 text-2xl text-gray-500"></i>
+                                <p class="text-gray-700 m-4">
+                                    {{$testimonial->description}}
+                                </p>
+                                <i class="fas fa-quote-right -right-10 bottom-0 text-2xl text-gray-500"></i>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <!-- Right Arrow -->
+                <button id="next" class="absolute right-5 p-2 z-10 bg-gray-300 rounded-full focus:outline-none">
+                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
     </div>
 
+
+    <script>
+        const carousel = document.getElementById('carousel');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+
+        prevButton.addEventListener('click', () => {
+            carousel.scrollBy({
+                left: -carousel.offsetWidth,
+                behavior: 'smooth'
+            });
+        });
+
+        nextButton.addEventListener('click', () => {
+            carousel.scrollBy({
+                left: carousel.offsetWidth,
+                behavior: 'smooth'
+            });
+        });
+    </script>
 @endsection

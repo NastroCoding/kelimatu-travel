@@ -287,6 +287,20 @@ a {
     width: 60%;
 }
 
+.contact-wrapper {
+    width: 80%;
+}
+
+.testimonial-carousel {
+    scroll-snap-type: x mandatory;
+}
+.testimonial-item {
+    scroll-snap-align: center;
+}
+.testimonial-item > div {
+    height: 100%;
+}
+
 #slideshow-btn:hover span svg{
     color: #fff;
 }
