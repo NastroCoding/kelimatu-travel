@@ -52,7 +52,7 @@
                     </div>
                 </div>
 
-                <a href="#"
+                <a href="/services"
                     class="text-[#671282] font-bold transition duration-150 ease-in-out hover:text-[#b70fb9]">Services</a>
                 <a href="/contact-us"
                     class="text-[#671282] font-bold transition duration-150 ease-in-out hover:text-[#b70fb9]">Kontak</a>
