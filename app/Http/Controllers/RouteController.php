@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gallery;
+use App\Models\Service;
+use App\Models\ServiceOption;
 use App\Models\Team;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
@@ -35,8 +37,12 @@ class RouteController extends Controller
     }
 
     public function services() {
+        $services = Service::all();
+        $details = ServiceOption::all();
         return view('pages.services',[
             'page' => 'Services',
+            'services' => $services,
+            'details' => $details
         ]);
     }
 
@@ -86,6 +92,17 @@ class RouteController extends Controller
         $teams = Team::all();
         return view('admin.inbox',[
             'page' => 'Inbox',
+        ]);
+    }
+
+    public function admin_services()
+    {
+        $services = Service::all();
+        $details = ServiceOption::all();
+        return view('admin.services',[
+            'page' => 'Services',
+            'services' => $services,
+            'details' => $details
         ]);
     }
 }

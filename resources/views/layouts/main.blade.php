@@ -53,7 +53,7 @@
                 </div>
 
                 <a href="/services"
-                    class="text-[#671282] font-bold transition duration-150 ease-in-out hover:text-[#b70fb9]">Services</a>
+                    class="text-[#671282] font-bold transition duration-150 ease-in-out hover:text-[#b70fb9]">Layanan</a>
                 <a href="/contact-us"
                     class="text-[#671282] font-bold transition duration-150 ease-in-out hover:text-[#b70fb9]">Kontak</a>
             </div>
@@ -75,7 +75,7 @@
             <!-- About with Dropdown -->
             <div class="relative">
                 <button id="about-button"
-                    class="text-[#671282] font-bold transition hover:text-[#b70fb9]">About</button>
+                    class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Tentang</button>
                 <div id="about-dropdown"
                     class="hidden flex flex-col space-y-2 mt-2 bg-[#d7cbbf] rounded-md shadow-lg p-2">
                     <a href="/about-us" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Visi & Misi</a>
@@ -87,8 +87,8 @@
                 </div>
             </div>
 
-            <a href="#" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Services</a>
-            <a href="/contact-us" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Contact</a>
+            <a href="#" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Layanan</a>
+            <a href="/contact-us" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Kontak</a>
         </div>
     </nav>
 

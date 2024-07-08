@@ -62,6 +62,10 @@
                             <a href="/admin/team" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 role="menuitem">Tim</a>
                         </li>
+                        <li>
+                            <a href="/admin/services" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                role="menuitem">Layanan</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -87,6 +91,13 @@
                         <span class="ms-3">Inbox</span>
                         <span
                             class="inline-flex items-center justify-center px-2 py-1 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full">14</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/services"
+                        class="flex items-center p-2 text-gray-900 transition rounded-lg hover:bg-gray-100 group">
+                        <i class="fa-solid fa-plane-departure"></i>
+                        <span class="ms-3">Layanan</span>
                     </a>
                 </li>
                 <li>

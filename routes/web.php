@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,7 @@ Route::controller(RouteController::class)->group(function(){
         Route::get('/admin/testimony', 'admin_testimony');
         Route::get('/admin/team', 'admin_team');
         Route::get('/admin/inbox', 'admin_inbox');
+        Route::get('/admin/services', 'admin_services');
     });
     
 });
@@ -52,6 +54,12 @@ Route::middleware('auth')->group(function(){
             Route::post('/testimony/post', 'store');
             Route::post('/testimony/update/{id}', 'update');
             Route::get('/testimony/delete/{id}', 'destroy');
+        });
+
+        Route::controller(ServiceController::class)->group(function(){
+            Route::post('/service/post', 'store');
+            Route::post('/service/update/{id}', 'update');
+            Route::get('/service/delete/{id}', 'destroy');
         });
     });
 });
