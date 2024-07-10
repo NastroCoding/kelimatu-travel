@@ -26,21 +26,20 @@ class ServiceController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|integer',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
             'options' => 'nullable|array',
             'options.*' => 'nullable|string',
         ]);
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('services', 'public');
-            $validated['image'] = $path;
+            $request['image'] = $path;
         }
 
         $validated['created_by'] = auth()->id();
 
         $service = Service::create([
             'title' => $validated['title'],
-            'image' => $validated['image'],
+            'image' => $request['image'],
             'description' => $validated['description'],
             'price' => $validated['price'],
             'created_by' => Auth::user()->id,

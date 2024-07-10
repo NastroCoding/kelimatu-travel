@@ -39,7 +39,7 @@
 
                     <a href="#"
                         class="inline-flex justify-center w-full text-center items-center px-3 py-2 text-sm font-bold text-white bg-gray-700 shadow-xl border-2 border-gray-800 rounded-full hover:bg-[#671282] transition hover:border-white focus:ring-4 focus:outline-none focus:ring-blue-300">
-                        Rp {{ $service->price }}
+                        Rp {{ number_format($service->price, 0, ',', '.') }}
                     </a>
                     <div class="flex justify-center mt-4 md:mt-6">
                         <a href="#" data-modal-target="edit-modal{{ $service->id }}"
@@ -99,13 +99,13 @@
                                 </div>
                                 <div class="mb-5">
                                     <label for="description"
-                                        class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
+                                        class="block mb-2 text-sm font-medium text-gray-900">Deskripsi <span class="text-red-700">*</span></label>
                                     <input type="text" id="description" name="description"
                                         placeholder="Layanan ini cocok untuk..." value="{{ $service->description }}"
                                         class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
                                 </div>
                                 <div class="mb-5">
-                                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900">Harga</label>
+                                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900">Harga <span class="text-red-700">*</span></label>
                                     <input type="number" id="price" name="price" value="{{ $service->price }}"
                                         placeholder="10000000(masukkan tanpa titik)"
                                         class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
@@ -191,13 +191,13 @@
                         </div>
                         <div class="mb-5">
                             <label for="description"
-                                class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
+                                class="block mb-2 text-sm font-medium text-gray-900">Deskripsi <span class="text-red-700">*</span></label>
                             <input type="text" id="description" name="description"
                                 placeholder="Layanan ini cocok untuk..."
                                 class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
                         </div>
                         <div class="mb-5">
-                            <label for="price" class="block mb-2 text-sm font-medium text-gray-900">Harga</label>
+                            <label for="price" class="block mb-2 text-sm font-medium text-gray-900">Harga <span class="text-red-700">*</span></label>
                             <input type="number" id="price" name="price"
                                 placeholder="10000000(masukkan tanpa titik)"
                                 class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
@@ -206,7 +206,7 @@
                         <!-- Dynamic Options Input -->
                         <div class="mb-5">
                             <label for="add-options-container" class="block mb-2 text-sm font-medium text-gray-900">Detail
-                                layanan</label>
+                                layanan <span class="text-red-700">*</span></label>
                             <div id="add-options-container">
                                 <div class="flex items-center mb-2">
                                     <input type="text" name="options[]" placeholder="Sudah termasuk..."

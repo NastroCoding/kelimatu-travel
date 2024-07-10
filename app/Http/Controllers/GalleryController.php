@@ -29,7 +29,7 @@ class GalleryController extends Controller
             foreach ($request->file('image') as $file) {
                 $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
-                $path = $file->storeAs('images/team', $filename, 'public');
+                $path = $file->storeAs('gallery_images', $filename, 'public');
 
                 Gallery::create([
                     'image' => $path,

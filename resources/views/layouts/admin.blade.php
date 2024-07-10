@@ -121,6 +121,13 @@
                         <span class="ms-3">Tim</span>
                     </a>
                 </li>
+                <li>
+                    <a href="/admin/config"
+                        class="flex items-center p-2 text-gray-900 transition rounded-lg hover:bg-gray-100 group">
+                        <i class="fa-solid fa-gear"></i>
+                        <span class="ms-3">Konfigurasi</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </aside>

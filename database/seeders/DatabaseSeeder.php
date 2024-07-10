@@ -19,5 +19,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'kelimatuadmin@kelimatu.com',
             'password' => Hash::make('travel&tripkelimatu24')
         ]);
+
+        DB::table('configs')->insert([
+            'address' => 'PT. LTE Holding (PT. Kelimatu Travel & Tours) Jl. Persada Raya No. 70H T03 RT015 Kel. Menteng Dalam, Kec. Tebet - Jakarta Selatan.',
+            'whatsapp_num' => '085171688927',
+            'gmail' => 'kelimatutravel@gmail.com',
+            'instagram' => '@kelimatutravel',
+        ]);
     }
 }

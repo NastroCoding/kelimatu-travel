@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
+
     <div class="container mx-auto mt-10">
         <div class=" p-8 ">
             <h1 class="text-3xl font-bold mb-8 text-center">Kontak Kami</h1>
@@ -12,32 +13,33 @@
                         <i class="fa-solid fa-location-dot"></i>
                     </div>
                     <h2 class="text-xl font-semibold">Alamat</h2>
-                    <p class="text-center ">PT. LTE Holding
-                        (PT. Kelimatu Travel & Tours)
-                        Jl. Persada Raya No. 70H
-                        RT03 RT015 Kel. Menteng Dalam, Kec. Tebet - Jakarta Selatan.
-                    </p>
+                    <p class="text-center">{{ $configs->address }}</p>
                 </div>
                 <div class="bg-gray-100 flex flex-col p-8 rounded-md items-center shadow-md">
                     <div class="text-4xl text-[#671282] mb-4">
                         <i class="fab fa-whatsapp"></i>
                     </div>
                     <h2 class="text-xl font-semibold">WhatsApp</h2>
-                    <p class="text-center"></p>
+                    <a href="https://wa.me/62{{ $configs->whatsapp_num }}"
+                        class="text-center my-auto text-2xl">
+                        <p>0{{ $configs->whatsapp_num }}</p>
+                    </a>
                 </div>
                 <div class="bg-gray-100 flex flex-col p-8 rounded-md items-center shadow-md">
                     <div class="text-4xl text-[#671282] mb-4">
                         <i class="fas fa-envelope"></i>
                     </div>
                     <h2 class="text-xl font-semibold">G-Mail</h2>
-                    <p class="text-center"></p>
+                    <a href="mailto:{{ $configs->gmail }}" class="text-center my-auto text-base><p">{{ $configs->gmail }}</p></a>
                 </div>
                 <div class="bg-gray-100 flex flex-col p-8 rounded-md items-center shadow-md">
                     <div class="text-4xl text-[#671282] mb-4">
                         <i class="fab fa-instagram"></i>
                     </div>
                     <h2 class="text-xl font-semibold">Instagram</h2>
-                    <p class="text-center"></p>
+                    <a href="https://www.instagram.com/{{ $configs->instagram }}/" class="text-center my-auto text-lg">
+                        <p> {{ '@' . $configs -> instagram }} </p>
+                    </a>
                 </div>
             </div>
 
@@ -47,31 +49,64 @@
                 <div>
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d416.90209824202327!2d106.84648490626037!3d-6.228946038477268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f39231e44cfd%3A0xc599df0bb0956bf4!2sJl.%20Persada%20Raya%20No.70%2C%20RT.3%2FRW.15%2C%20Kuningan%2C%20Menteng%20Dalam%2C%20Kec.%20Tebet%2C%20Kota%20Jakarta%20Selatan%2C%20Daerah%20Khusus%20Ibukota%20Jakarta%2012870!5e0!3m2!1sen!2sid!4v1720001500411!5m2!1sen!2sid"
-                        width="100%" height="700" style="border:0;" allowfullscreen="" loading="lazy" class="transition rounded-md shadow-md"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        width="100%" height="700" style="border:0;" allowfullscreen="" loading="lazy"
+                        class="transition rounded-md shadow-md" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
 
                 <!-- Contact Form -->
                 <div class="bg-gray-100 p-8 rounded-md shadow-md">
-                    <form>
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 animate__animated animate__fadeInDown animate__faster"
+                                role="alert">
+                                <span class="font-medium">{{ $error }}</span>
+                            </div>
+                        @endforeach
+                    @endif
+                    @if (session('success'))
+                        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 animate__animated animate__fadeInDown animate__faster"
+                            role="alert">
+                            <span class="font-medium">Sukses!</span> {{ session('success') }}
+                        </div>
+                    @endif
+                    <form action="/mail/add" method="POST">
+                        @csrf
                         <div class="mb-4">
                             <label for="name" class="block text-sm font-semibold mb-2">Nama Lengkap</label>
                             <input type="text" id="name" name="name"
-                                class="w-full p-3 border border-gray-300 rounded-md transition">
+                                class="w-full p-3 border border-gray-300 rounded-md transition @error('name') border-red-500 @enderror"
+                                value="{{ old('name') }}">
                         </div>
                         <div class="mb-4">
                             <label for="email" class="block text-sm font-semibold mb-2">Email</label>
                             <input type="email" id="email" name="email"
-                                class="w-full p-3 border border-gray-300 rounded-md transition">
+                                class="w-full p-3 border border-gray-300 rounded-md transition @error('email') border-red-500 @enderror"
+                                value="{{ old('email') }}">
                         </div>
                         <div class="mb-4">
                             <label for="subject" class="block text-sm font-semibold mb-2">Subjek</label>
                             <input type="text" id="subject" name="subject"
-                                class="w-full p-3 border border-gray-300 rounded-md transition">
+                                class="w-full p-3 border border-gray-300 rounded-md transition @error('subject') border-red-500 @enderror"
+                                value="{{ old('subject') }}">
                         </div>
                         <div class="mb-4">
                             <label for="message" class="block text-sm font-semibold mb-2">Pesan</label>
-                            <textarea id="message" name="message" rows="5" class="w-full p-3 border border-gray-300 rounded-md transition"></textarea>
+                            <textarea id="message" name="description" rows="4"
+                                class="w-full p-3 border border-gray-300 rounded-md transition @error('message') border-red-500 @enderror">{{ old('message') }}</textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="captcha" class="block text-gray-700 text-sm font-bold mb-2">CAPTCHA</label>
+                            <div class="flex items-center">
+                                <img src="{{ captcha_src() }}" alt="CAPTCHA"
+                                    class="captcha-img border border-gray-300 rounded-md" data-refresh-config="default">
+                                <button type="button"
+                                    class="ml-2 p-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md focus:outline-none btn-refresh-captcha">
+                                    Refresh
+                                </button>
+                            </div>
+                            <input type="text" id="captcha" name="captcha"
+                                class="mt-2 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 @error('captcha') border-red-500 @enderror"
+                                placeholder="Enter CAPTCHA">
                         </div>
                         <button type="submit"
                             class="w-full p-3 bg-[#671282] hover:bg-white text-white hover:text-[#671282] rounded-md transition font-semibold border-2">Kirim
@@ -81,4 +116,12 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.querySelector('.btn-refresh-captcha').addEventListener('click', function() {
+            var captchaImage = document.querySelector('.captcha-img');
+            var captchaSrc = captchaImage.src.split('?')[0];
+            captchaImage.src = captchaSrc + '?' + Math.random();
+        });
+    </script>
 @endsection
