@@ -14,6 +14,7 @@ return new class extends Migration
             Schema::create('service_options', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('service_id')->constrained('services')->onDelete('cascade');
+                $table->string('icon');
                 $table->string('option');
                 $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
                 $table->timestamps();

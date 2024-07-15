@@ -17,14 +17,14 @@ class DatabaseSeeder extends Seeder
     {
         DB::table('users')->insert([
             'email' => 'kelimatuadmin@kelimatu.com',
-            'password' => Hash::make('travel&tripkelimatu24')
+            'password' => Hash::make('travel&tourkelimatu24')
         ]);
 
         DB::table('configs')->insert([
-            'address' => 'PT. LTE Holding (PT. Kelimatu Travel & Tours) Jl. Persada Raya No. 70H T03 RT015 Kel. Menteng Dalam, Kec. Tebet - Jakarta Selatan.',
-            'whatsapp_num' => '085171688927',
-            'gmail' => 'kelimatutravel@gmail.com',
-            'instagram' => '@kelimatutravel',
+            'address' => 'Ruko Jl. Persada Raya 70H, RT003 RW015 Menteng Dalam, Tebet, Jakarta, Indonesia 12870',
+            'whatsapp_num' => '087771408467',
+            'gmail' => 'khighlevel@gmail.com',
+            'instagram' => 'kelimatutraveltour',
         ]);
     }
 }

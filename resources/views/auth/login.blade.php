@@ -7,13 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Kelimatu Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
+    <link rel="shortcut icon" href="{{ URL::asset('dist/assets/ico/favicon.ico') }}" type="image/x-icon">
 </head>
 
 <body class="bg-gray-100 flex items-center justify-center h-screen">
     <div class="w-full max-w-md">
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <h2 class="text-2xl font-bold mb-6 text-center">Kelimatu Admin Login</h2>
+            <img class="w-40 m-auto h-full h-auto my-2"
+            src="{{ URL::asset('dist/assets/img/kelimatu_logo.png') }}" alt="Kelimatu Travel & Tours Logo">
+            <h2 class="text-2xl mb-6 text-center">Kelimatu Admin Login</h2>
             <form method="post" action="/signin">
                 @csrf
                 <div class="mb-4">

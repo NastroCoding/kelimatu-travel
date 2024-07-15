@@ -1,16 +1,16 @@
 @extends('layouts.main')
 @section('container')
     <div class="jumbotron" id="content">
-        <div class="jumbotron-overlay"></div>
-        <div class="main-left mx-[5%]">
-            <p style="font-weight: bold;">Rasakan kedamaian di Tanah Suci bersama Kami</p>
-            <h1 class="title-brand text-5xl my-3" style="font-weight: bold;">Kelimatu <br> <span><u>Travel & Tours</u></span>
+        <div class="main-left mx-[5%] bg-white bg-opacity-60 rounded-lg p-10 aura-div">
+            <p class="font-bold">Rasakan kedamaian di Tanah Suci bersama Kami</p>
+            <h1 class="title-brand text-7xl my-3 aura-text">
+                Kelimatu <br> <span><u>Travel & Tours</u></span>
             </h1>
-            <p class="font-bold">Umroh adalah perjalanan hati dan jiwa. Bersama kami, wujudkan umroh impian Anda dengan penuh
-                kenyamanan</p>
+            <p class="font-bold">Umroh adalah perjalanan hati dan jiwa. Bersama kami, wujudkan umroh impian Anda dengan penuh kenyamanan</p>
             <a href="/about-us" class="about-anchor"><button class="about-button mt-5 font-bold">Tentang Kami</button></a>
         </div>
-        <div class="main-right">
+        
+        <div class="main-right mt-8 mb-8">
             <img src="{{ URL::asset('dist/assets/img/kaabah.png') }}" class="custom-background" alt="">
         </div>
     </div>
@@ -65,7 +65,8 @@
         <div class="caption">
             <h3 class="caption-header text-2xl">"Kalau Allah sudah memanggil, kalau Allah sudah mengundang, dengan cara
                 apapun kita pasti akan mengunjunginya, Insyaa Allah kita akan dimudahkan hadir ke Baitullah"</h3>
-            <a href="/contact-us" class="anchor-button font-bold"><button class="contact-button text-white hover:text-[#b70fb9]">Kontak Kami</button></a>
+            <a href="/contact-us" class="anchor-button font-bold"><button
+                    class="contact-button text-white hover:text-[#b70fb9]">Kontak Kami</button></a>
         </div>
     </div>
 
@@ -86,14 +87,15 @@
                     @foreach ($testimonials as $testimonial)
                         <div
                             class="testimonial-item flex-shrink-0 w-80 md:w-96 bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center relative min-h-[400px]">
-                            <img src="{{ $testimonial->image ? Storage::url($testimonial->image) : 'https://via.placeholder.com/100'  }}" alt="Aqil"
+                            <img src="{{ $testimonial->image ? Storage::url($testimonial->image) : 'https://via.placeholder.com/100' }}"
+                                alt="Aqil"
                                 class="w-16 h-20 rounded-full overflow-hidden border-2 border-gray-200 mb-4 object-cover">
                             <h3 class="font-semibold">{{ $testimonial->name }}</h3>
-                            <p class="text-gray-500">{{$testimonial->caption}}</p>
+                            <p class="text-gray-500">{{ $testimonial->caption }}</p>
                             <div class="relative mt-2">
                                 <i class="fas fa-quote-left -left-10 top-0 text-2xl text-gray-500"></i>
                                 <p class="text-gray-700 m-4">
-                                    {{$testimonial->description}}
+                                    {{ $testimonial->description }}
                                 </p>
                                 <i class="fas fa-quote-right -right-10 bottom-0 text-2xl text-gray-500"></i>
                             </div>

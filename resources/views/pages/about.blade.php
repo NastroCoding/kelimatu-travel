@@ -19,7 +19,7 @@
                 <div class="text-sejarah shadow-xl mx-1 bg-gray-700 p-8 rounded-lg ">
                     <h1 class="text-3xl text-white font-bold text-center my-2"> Visi </h1>
                     <hr>
-                    <p class="text-lg text-white text-center">Menjadi penyelenggara umroh terdepan dengan fasilitas
+                    <p class="text-lg text-white"> Menjadi penyelenggara umroh terdepan dengan fasilitas
                         terbaik,
                         mengutamakan nilai spiritual dan kepuasan layanan kepada Tamu
                         Allah.</p>
@@ -47,16 +47,16 @@
                         <dd class="text-white font-extrabold">Profesional</dd>
                     </div>
                     <div class="flex flex-col items-center justify-center">
-                        <dt class="mb-2 text-3xl text-white font-extrabold"><i class="fa-solid fa-scale-balanced"></i></dt>
-                        <dd class="text-white font-extrabold">Adil Peduli</dd>
+                        <dt class="mb-2 text-3xl text-white font-extrabold"><i class="fa-solid fa-gear"></i></dt>
+                        <dd class="text-white font-extrabold">Integritas</dd>
                     </div>
                     <div class="flex flex-col items-center justify-center">
                         <dt class="mb-2 text-3xl text-white font-extrabold"><i class="fa-solid fa-handshake"></i></dt>
                         <dd class="text-white font-extrabold">Jujur</dd>
                     </div>
                     <div class="flex flex-col items-center justify-center">
-                        <dt class="mb-2 text-3xl text-white font-extrabold"><i class="fa-solid fa-gear"></i></dt>
-                        <dd class="text-white font-extrabold">Integritas</dd>
+                        <dt class="mb-2 text-3xl text-white font-extrabold"><i class="fa-solid fa-scale-balanced"></i></dt>
+                        <dd class="text-white font-extrabold">Adil Peduli</dd>
                     </div>
                     <div class="flex flex-col items-center justify-center">
                         <dt class="mb-2 text-3xl text-white font-extrabold"><i class="fa-solid fa-lock"></i></dt>
@@ -86,16 +86,18 @@
                         alt="">
                 </div>
                 <div class="text-sejarah shadow-xl bg-gray-700 border border-gray-200 dark:border-gray-700 p-8 rounded-lg ">
-                    <p class="text-lg text-white">Pada akuisisi saham PT. EPW, pengurus baru PT. EPW telah mengubah
+                    <p class="text-lg text-white">Pada akuisisi saham PT. Emaar Pesona Wisata, pengurus baru PT. Emaar
+                        Pesona Wisata telah mengubah
                         branding
                         nama
                         menjadi "Kelimatu Travel &
                         Tours", dengan domisili yang tetap, serta memiliki izin PPIU (Penyelenggara Perjalanan Ibadah
                         Umroh)
                         dari
-                        Kementerian Agama RI dengan nomor 12860016215810006. Perusahaan ini fokus pada penyediaan produk
+                        Kementerian Agama RI dengan nomor 12860016215810006. Kami fokus pada penyediaan produk
                         perjalanan
-                        ibadah umroh.</p>
+                        ibadah umroh. Insya allah dalam waktu dekat kami akan segera mengurus PIHK (Penyelenggara Ibadah
+                        Haji Khusus)</p>
                 </div>
             </div>
             <div
@@ -129,24 +131,34 @@
                 </h1>
             </div>
         </div>
-
+        
         <div class="about-wrapper mx-auto">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                @foreach ($galleries->chunk(3) as $chunk)
-                    <div class="grid gap-4">
-                        @foreach ($chunk as $gallery)
-                            <div class="relative">
-                                <a href="{{ Storage::url($gallery->image) }}">
-                                    <img class="h-auto max-w-full rounded-lg" src="{{ Storage::url($gallery->image) }}"
-                                        alt="">
-                                </a>
-                            </div>
-                        @endforeach
+                @php
+                    $landscapeImages = $galleries->filter(fn($gallery) => !$gallery->isPortrait());
+                    $portraitImages = $galleries->filter(fn($gallery) => $gallery->isPortrait());
+                @endphp
+        
+                @foreach ($landscapeImages as $gallery)
+                    <div class="relative">
+                        <a href="{{ Storage::url($gallery->image) }}">
+                            <img class="h-auto max-w-full rounded-lg" src="{{ Storage::url($gallery->image) }}"
+                                alt="" loading="lazy">
+                        </a>
+                    </div>
+                @endforeach
+        
+                @foreach ($portraitImages as $gallery)
+                    <div class="relative">
+                        <a href="{{ Storage::url($gallery->image) }}">
+                            <img class="h-auto max-w-full rounded-lg" src="{{ Storage::url($gallery->image) }}"
+                                alt="" loading="lazy">
+                        </a>
                     </div>
                 @endforeach
             </div>
         </div>
-
+        
     </section>
 
     <section id="tim">

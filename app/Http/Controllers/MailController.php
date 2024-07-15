@@ -10,9 +10,22 @@ class MailController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+    public function index(Request $request)
     {
-        //
+        $query = Mail::query();
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('name', 'LIKE', "%{$search}%")
+                ->orWhere('subject', 'LIKE', "%{$search}%");
+        }
+
+        $mails = $query->latest('created_at')->get();
+
+        $page = 'inbox';
+
+        return view('admin.inbox', compact('mails', 'page'));
     }
 
     /**

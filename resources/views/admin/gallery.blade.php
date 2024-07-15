@@ -20,25 +20,40 @@
         Galeri</button>
     <div class="about-wrapper mx-auto">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            @php
+                $landscapeImages = $galleries->filter(fn($gallery) => !$gallery->isPortrait());
+                $portraitImages = $galleries->filter(fn($gallery) => $gallery->isPortrait());
+            @endphp
 
-            @foreach ($galleries->chunk(3) as $chunk)
-                <div class="grid gap-4">
-                    @foreach ($chunk as $gallery)
-                        <div class="relative">
-                            <img class="h-auto max-w-full rounded-lg" src="{{ asset('storage/' . $gallery->image) }}"
-                                alt="">
-                            <a class="delete-btn trash-button absolute top-2 right-2 flex items-center justify-center bg-black bg-opacity-50 rounded-full p-2 cursor-pointer hover:bg-white hover:text-red-700 transition text-white"
-                                data-modal-target="delete-modal" data-id="{{ $gallery->id }}"
-                                data-modal-toggle="delete-modal">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
-                        </div>
-                    @endforeach
+            @foreach ($landscapeImages as $gallery)
+                <div class="relative">
+                    <a href="{{ Storage::url($gallery->image) }}">
+                        <img class="h-auto max-w-full rounded-lg" src="{{ Storage::url($gallery->image) }}" alt=""
+                            loading="lazy">
+                        <a class="delete-btn trash-button absolute top-2 right-2 flex items-center justify-center bg-black bg-opacity-50 rounded-full p-2 cursor-pointer hover:bg-white hover:text-red-700 transition text-white"
+                            data-modal-target="delete-modal" data-id="{{ $gallery->id }}" data-modal-toggle="delete-modal">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </a>
                 </div>
             @endforeach
 
+            @foreach ($portraitImages as $gallery)
+                <div class="relative">
+                    <a href="{{ Storage::url($gallery->image) }}">
+                        <img class="h-auto max-w-full rounded-lg" src="{{ Storage::url($gallery->image) }}" alt=""
+                            loading="lazy">
+                        <a class="delete-btn trash-button absolute top-2 right-2 flex items-center justify-center bg-black bg-opacity-50 rounded-full p-2 cursor-pointer hover:bg-white hover:text-red-700 transition text-white"
+                            data-modal-target="delete-modal" data-id="{{ $gallery->id }}" data-modal-toggle="delete-modal">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </a>
+                </div>
+            @endforeach
         </div>
     </div>
+
+
 
     <!-- Main modal -->
     <div id="add-modal" aria-hidden="true" data-modal-backdrop="static"

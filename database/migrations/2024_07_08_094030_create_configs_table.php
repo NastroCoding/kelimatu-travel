@@ -15,8 +15,12 @@ return new class extends Migration
             $table->id();
             $table->text('address')->nullable();
             $table->bigInteger('whatsapp_num')->nullable();
+            $table->bigInteger('whatsapp_num2')->nullable();
             $table->string('gmail')->nullable();
             $table->string('instagram')->nullable();
+            $table->string('tiktok')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('youtube')->nullable();
             $table->timestamps();
         });
     }

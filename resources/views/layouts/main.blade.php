@@ -32,12 +32,12 @@
             <!-- Links -->
             <div class="hidden lg:flex space-x-4 text-center relative">
                 <a href="/"
-                    class="text-[#671282] font-bold transition duration-150 ease-in-out hover:text-[#b70fb9]">Home</a>
+                    class="text-[#671282] font-bold transition duration-150 ease-in-out hover:text-[#b70fb9]">Beranda</a>
 
                 <!-- About with Dropdown -->
                 <div class="relative group">
                     <a href="/about-us"
-                        class="text-[#671282] font-bold duration-150 ease-in-out hover:text-[#b70fb9] inline-block">Profile</a>
+                        class="text-[#671282] font-bold duration-150 ease-in-out hover:text-[#b70fb9] inline-block">Profil</a>
                     <div
                         class="absolute left-0 mt-2 w-40 bg-white rounded-md hover:rounded-md transition shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 ease-in-out z-10">
                         <a href="/about-us#visimisi"
@@ -70,12 +70,12 @@
         </div>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="lg:hidden hidden flex flex-col space-y-2 mt-4">
-            <a href="/" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Home</a>
+            <a href="/" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Beranda</a>
 
             <!-- About with Dropdown -->
             <div class="relative">
                 <button id="about-button"
-                    class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Profile</button>
+                    class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Profil</button>
                 <div id="about-dropdown"
                     class="hidden flex flex-col space-y-2 mt-2 bg-[#d7cbbf] rounded-md shadow-lg p-2">
                     <a href="/about-us" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Visi & Misi</a>
@@ -133,7 +133,7 @@
                 <!-- Company Information -->
                 <div class="text-center md:text-left items-baseline">
                     <h2 class="text-xl font-semibold mb-2">Company</h2>
-                    <p><a href="/about-us" class="hover:underline">Profile</a></p>
+                    <p><a href="/about-us" class="hover:underline">Profil</a></p>
                     <p><a href="/services" class="hover:underline">Paket Layanan</a></p>
                     <p><a href="/contact-us" class="hover:underline">Kontak</a></p>
                 </div>

@@ -89,8 +89,6 @@
                         class="flex items-center p-2 text-gray-900 transition rounded-lg hover:bg-gray-100 group">
                         <i class="fa-solid fa-inbox"></i>
                         <span class="ms-3">Inbox</span>
-                        <span
-                            class="inline-flex items-center justify-center px-2 py-1 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full">14</span>
                     </a>
                 </li>
                 <li>

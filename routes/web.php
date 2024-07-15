@@ -7,6 +7,9 @@ use App\Http\Controllers\RouteController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\ServiceDetailController;
+use App\Models\Config;
 use Illuminate\Support\Facades\Route;
 use Mews\Captcha\Captcha;
 
@@ -15,6 +18,7 @@ use Mews\Captcha\Captcha;
 // });
 
 Route::get('captcha/{config?}', [Captcha::class, 'create'])->name('captcha');
+Route::get('/admin/mails', [MailController::class, 'index'])->name('mails.index');
 
 Route::controller(RouteController::class)->group(function(){
 
@@ -69,8 +73,17 @@ Route::middleware('auth')->group(function(){
             Route::get('/service/delete/{id}', 'destroy');
         });
 
+        Route::controller(ServiceDetailController::class)->group(function(){
+            Route::post('/service/detail/add/{id}', 'store');
+        });
+
         Route::controller(ConfigController::class)->group(function(){
             Route::post('/config/update/{id}', 'update');
         });
     });
+});
+
+Route::fallback(function () {
+    $configs = Config::latest()->first();
+    return response()->view('404', [ 'configs' => $configs ], 404);
 });
