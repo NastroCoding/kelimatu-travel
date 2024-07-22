@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('configs', function (Blueprint $table) {
             $table->id();
             $table->text('address')->nullable();
+            $table->text('map')->nullable();
+            $table->text('operational')->nullable();
+            $table->text('visi')->nullable();
+            $table->text('misi')->nullable();
+            $table->text('history')->nullable();
             $table->bigInteger('whatsapp_num')->nullable();
             $table->bigInteger('whatsapp_num2')->nullable();
             $table->string('gmail')->nullable();

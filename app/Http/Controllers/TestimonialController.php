@@ -97,6 +97,10 @@ class TestimonialController extends Controller
     public function destroy($id)
     {
         $testimonial = Testimonial::find($id);
+        $filePath = storage_path('app/public/' . $testimonial->image);
+        if (file_exists($filePath)) {
+            unlink($filePath); 
+        }
         $testimonial->delete();
 
         return back()->with('success', 'Testimoni berhasil di hapus!');

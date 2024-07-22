@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Kelimatu | {{$page}}</title>
+    <title>Kelimatu | {{ $page }}</title>
     <link rel="shortcut icon" href="{{ URL::asset('dist/assets/ico/favicon.ico') }}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
@@ -23,7 +23,7 @@
 </head>
 
 <body>
-    <nav class="fixed top-0 z-10 w-full border-b bg-white border-gray-200">
+    <nav class="fixed top-0 z-50 w-full border-b bg-white border-gray-200">
         <div class="px-3 py-3 lg:px-5 lg:pl-3 flex items-center justify-between">
             <div class="flex items-center justify-start">
                 <button id="hamburger-btn" type="button"
@@ -47,24 +47,28 @@
                 <div class="hidden my-4 text-base list-none divide-y divide-gray-100 rounded shadow" id="dropdown-user">
                     <ul class="py-1" role="none">
                         <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                role="menuitem">Dashboard</a>
+                            <a href="/admin/inbox" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                role="menuitem">Inbox</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            <a href="/admin/activity" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                role="menuitem">Aktifitas</a>
+                        </li>
+                        <li>
+                            <a href="/admin/services" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                role="menuitem">Layanan</a>
+                        </li>
+                        <li>
+                            <a href="/admin/gallery" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 role="menuitem">Galeri</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            <a href="/admin/testimony" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 role="menuitem">Testimoni</a>
                         </li>
                         <li>
                             <a href="/admin/team" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 role="menuitem">Tim</a>
-                        </li>
-                        <li>
-                            <a href="/admin/services" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                role="menuitem">Layanan</a>
                         </li>
                     </ul>
                 </div>
@@ -78,17 +82,17 @@
         <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
             <ul class="space-y-2 font-medium">
                 <li>
-                    <a href="/admin/dashboard"
-                        class="flex items-center p-2 text-gray-900 transition rounded-lg hover:bg-gray-100 group">
-                        <i class="fa-solid fa-gauge"></i>
-                        <span class="ms-3">Dashboard</span>
-                    </a>
-                </li>
-                <li>
                     <a href="/admin/inbox"
                         class="flex items-center p-2 text-gray-900 transition rounded-lg hover:bg-gray-100 group">
                         <i class="fa-solid fa-inbox"></i>
                         <span class="ms-3">Inbox</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/activity"
+                        class="flex items-center p-2 text-gray-900 transition rounded-lg hover:bg-gray-100 group">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span class="ms-3">Aktifitas</span>
                     </a>
                 </li>
                 <li>

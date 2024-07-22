@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
 
 class GalleryController extends Controller
 {
@@ -13,7 +14,7 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -22,23 +23,31 @@ class GalleryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image.*' => 'required|image|mimes:jpeg,png,jpg,gif,webp'
+            'media.*' => 'required|file|mimes:jpeg,png,jpg,gif,webp,mp4,mov,avi,wmv',
         ]);
 
-        if ($request->hasFile('image')) {
-            foreach ($request->file('image') as $file) {
+        if ($request->hasFile('media')) {
+            foreach ($request->file('media') as $file) {
                 $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
-                $path = $file->storeAs('gallery_images', $filename, 'public');
+                $path = $file->storeAs('gallery_media', $filename, 'public');
 
+                
+                if (in_array($file->getClientOriginalExtension(), ['jpeg', 'png', 'jpg', 'gif', 'webp'])) {
+                    $optimizerChain = OptimizerChainFactory::create();
+                    $optimizerChain->optimize(storage_path('app/public/' . $path));
+                }
+
+                
                 Gallery::create([
-                    'image' => $path,
+                    'description' => $request->description,
+                    'media' => $path,
                     'created_by' => Auth::user()->id
                 ]);
             }
         }
 
-        return redirect()->back()->with('success', 'Images uploaded and saved to gallery successfully!');
+        return redirect()->back()->with('success', 'Gambar galeri berhasil ditambahkan dan dioptimalkan!');
     }
 
     /**
@@ -46,7 +55,7 @@ class GalleryController extends Controller
      */
     public function show(Gallery $gallery)
     {
-        //
+        
     }
 
     /**
@@ -54,7 +63,7 @@ class GalleryController extends Controller
      */
     public function update(Request $request, Gallery $gallery)
     {
-        //
+        
     }
 
     /**
@@ -62,9 +71,18 @@ class GalleryController extends Controller
      */
     public function destroy($id)
     {
-        $team = Gallery::find($id);
-        $team->delete();
+        
+        $gallery = Gallery::find($id);
+        
+        if (!$gallery) {
+            return back()->with('error', 'Foto galeri tidak ditemukan!');
+        }
+        $filePath = storage_path('app/public/' . $gallery->media);
+        if (file_exists($filePath)) {
+            unlink($filePath); 
+        }
+        $gallery->delete();
 
-        return back()->with('success', 'Foto galeri berhasil di hapus!');
+        return back()->with('success', 'Foto galeri berhasil dihapus!');
     }
 }

@@ -34,8 +34,14 @@
                         <h5 class="mt-2 text-lg tracking-tight text-white text-center">Detail Paket :</h5>
 
                         @foreach ($details->where('service_id', $service->id) as $detail)
-                            <p class="mb-1 text-white text-lg"><i class="{{ $detail->icon }} mr-1"></i>
-                                {{ $detail->option }}</p>
+                        <div class="flex items-center mb-2 text-white">
+                            <div class="w-6 text-center">
+                                <i class="{{ $detail->icon }} text-lg"></i>
+                            </div>
+                            <div class="ml-2">
+                                {{ $detail->option }}
+                            </div>
+                        </div>
                         @endforeach
 
                         <a href="#"
@@ -58,10 +64,10 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Edit modal -->
                 <div id="edit-modal{{ $service->id }}" aria-hidden="true" data-modal-backdrop="static"
-                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    class="hidden animate__animated animate__fadeIn animate__faster overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                     <div class="relative p-4 w-full max-w-2xl max-h-full">
                         <!-- Modal content -->
                         <div class="relative bg-white rounded-lg shadow">
@@ -126,9 +132,9 @@
 
                                     <!-- Dynamic Options Input -->
                                     <div class="mb-5">
-                                        <label for="edit-options-container"
+                                        <label for="edit-options-container-{{ $service->id }}"
                                             class="block mb-2 text-sm font-medium text-gray-900">Detail layanan</label>
-                                        <div id="edit-options-container">
+                                        <div id="edit-options-container-{{ $service->id }}">
                                             @foreach ($details->where('service_id', $service->id) as $index => $detail)
                                                 <div class="flex items-center mb-2">
                                                     <select class="icon-select mr-2 text-gray-900 text-sm rounded-lg p-2.5"
@@ -159,8 +165,9 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                        <button type="button" id="edit-option-btn"
-                                            class="text-white transition bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 my-1 text-center">Tambah</button>
+                                        <button type="button"
+                                            class="edit-option-btn text-white transition bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 my-1 text-center"
+                                            data-service-id="{{ $service->id }}">Tambah</button>
                                     </div>
 
                                 </div>
@@ -178,7 +185,7 @@
                 </div>
 
                 <div id="manage-modal{{ $service->id }}" aria-hidden="true" data-modal-backdrop="static"
-                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    class="hidden animate__animated animate__fadeIn animate__faster overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                     <div class="relative p-4 w-full max-w-2xl max-h-full">
                         <form method="post" action="/admin/service/detail/add/{{ $service->id }}"
                             enctype="multipart/form-data">
@@ -206,21 +213,21 @@
 
                                 <div class="p-4 md:p-5 space-y-4">
                                     @if ($service_details->isEmpty())
-                                    <div class="mb-5">
-                                        <label for="description" class="block mb-2 text-sm font-medium text-gray-900">
-                                            Deskripsi Tambahan Paket Layanan :</label>
-                                        <textarea name="description" rows="2" id="description"
-                                            class="transition block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                                            placeholder="Deskripsi Tambahan ... (dapat dikosongkan)"></textarea>
-                                    </div>
-                                    <div class="mb-5">
-                                        <label for="guider"
-                                            class="block mb-2 text-sm font-medium text-gray-900">Nama
-                                            Tour Leader :</label>
-                                        <input type="text" name="guider" id=""
-                                            class="transition block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                                            placeholder="Masukkan Nama">
-                                    </div>
+                                        <div class="mb-5">
+                                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900">
+                                                Deskripsi Tambahan Paket Layanan :</label>
+                                            <textarea name="description" rows="2" id="description"
+                                                class="transition block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                                placeholder="Deskripsi Tambahan ... (dapat dikosongkan)"></textarea>
+                                        </div>
+                                        <div class="mb-5">
+                                            <label for="guider"
+                                                class="block mb-2 text-sm font-medium text-gray-900">Nama
+                                                Tour Leader :</label>
+                                            <input type="text" name="guider" id=""
+                                                class="transition block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                                placeholder="Masukkan Nama">
+                                        </div>
                                     @endif
                                     @foreach ($service_details->where('service_id', $service->id) as $service_detail)
                                         <div class="mb-5">
@@ -383,7 +390,7 @@
 
                 <!-- Details modal -->
                 <div id="extralarge-modal{{ $service->id }}" aria-hidden="true" data-modal-backdrop="static"
-                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    class="hidden animate__animated animate__fadeIn animate__faster overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                     <div class="relative w-full max-w-7xl max-h-full mx-auto">
                         <!-- Modal content -->
                         <div class="relative bg-white rounded-lg shadow">
@@ -446,9 +453,7 @@
                                             <ul class="ml-4 list-disc list-inside mb-6">
                                                 @foreach ($service_details->where('service_id', $service->id) as $service_detail)
                                                     @foreach ($all_details->where('type', '=', 'included')->where('service_detail_id', $service_detail->id) as $all_detail)
-                                                        <li>{{ $all_detail->text }}@if ($all_detail->description)
-                                                                :
-                                                            @endif
+                                                        <li class="mt-1">{{ $all_detail->text }}
                                                         </li>
                                                         @if ($all_detail->description)
                                                             <p class="mb-1">{{ $all_detail->description }}</p>
@@ -465,9 +470,7 @@
                                             <ul class="ml-4 list-disc list-inside mb-6">
                                                 @foreach ($service_details->where('service_id', $service->id) as $service_detail)
                                                     @foreach ($all_details->where('type', '=', 'excluded')->where('service_detail_id', $service_detail->id) as $all_detail)
-                                                        <li>{{ $all_detail->text }}@if ($all_detail->description)
-                                                                :
-                                                            @endif
+                                                        <li class="mt-1">{{ $all_detail->text }}
                                                         </li>
                                                         @if ($all_detail->description)
                                                             <p class="mb-1">{{ $all_detail->description }}</p>
@@ -498,7 +501,7 @@
 
     <!-- Add modal -->
     <div id="add-modal" aria-hidden="true" data-modal-backdrop="static"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        class="hidden animate__animated animate__fadeIn animate__faster overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-2xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow">
@@ -528,6 +531,7 @@
                             <input
                                 class="transition block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                                 id="file_input" name="image" type="file" accept="image/*">
+                                <span class="text-red-700 text-sm font-medium">* disarankan foto dengan resolusi yang sama</span>
                             <img id="image_preview" class="mt-4 hidden w-3/5 rounded-lg" />
                         </div>
                         <div class="mb-5">
@@ -564,6 +568,7 @@
                                         <option value="fa-solid fa-calendar-days">📆</option>
                                         <option value="fa-solid fa-location-dot">📍</option>
                                         <option value="fa-solid fa-car">🚘</option>
+                                        <option value="fa-solid fa-users">👥</option>
                                     </select>
                                     <input type="text" name="options[]" placeholder="Sudah termasuk..."
                                         class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
@@ -671,18 +676,20 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            // For Edit Modal
-            const editOptionBtn = document.getElementById('edit-option-btn');
-            const editOptionsContainer = document.getElementById('edit-options-container');
+            // Delegate event for all "Tambah" buttons using a common class
+            document.querySelectorAll('.edit-option-btn').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const serviceId = button.getAttribute('data-service-id');
+                    const editOptionsContainer = document.getElementById(
+                        `edit-options-container-${serviceId}`);
 
-            if (editOptionBtn && editOptionsContainer) {
-                editOptionBtn.addEventListener('click', function() {
                     // Create div wrapper for new input and remove button
                     const optionWrapper = document.createElement('div');
                     optionWrapper.classList.add('flex', 'items-center', 'mb-2');
 
                     // Example of determining a new index for dynamic inputs
-                    let newIndex = document.querySelectorAll('input[name^="options["]').length;
+                    let newIndex = editOptionsContainer.querySelectorAll('input[name^="options["]')
+                        .length;
 
                     // Increment newIndex to ensure uniqueness
                     newIndex++;
@@ -699,12 +706,13 @@
                     newOptionSelect.classList.add('mr-2', 'text-gray-900', 'text-sm', 'rounded-lg',
                         'p-2.5');
                     newOptionSelect.innerHTML = `
-            <option value="fa-solid fa-plane">✈️</option>
-            <option value="fa-solid fa-hotel">🏨</option>
-            <option value="fa-solid fa-calendar-days">📆</option>
-            <option value="fa-solid fa-location-dot">📍</option>
-            <option value="fa-solid fa-car">🚘</option>
-        `;
+                <option value="fa-solid fa-plane">✈️</option>
+                <option value="fa-solid fa-hotel">🏨</option>
+                <option value="fa-solid fa-calendar-days">📆</option>
+                <option value="fa-solid fa-location-dot">📍</option>
+                <option value="fa-solid fa-car">🚘</option>
+                <option value="fa-solid fa-users">👥</option>
+            `;
 
                     // Create input element
                     const newOptionInput = document.createElement('input');
@@ -713,14 +721,15 @@
                     newOptionInput.setAttribute('placeholder', 'Sudah termasuk...');
                     newOptionInput.classList.add('transition', 'shadow-sm', 'bg-gray-50', 'border',
                         'border-gray-300', 'text-gray-900', 'text-sm', 'rounded-lg',
-                        'focus:ring-blue-500', 'focus:border-blue-500', 'block', 'w-full', 'p-2.5');
+                        'focus:ring-blue-500', 'focus:border-blue-500', 'block', 'w-full',
+                        'p-2.5');
 
                     // Create remove button
                     const removeButton = document.createElement('button');
                     removeButton.setAttribute('type', 'button');
                     removeButton.textContent = 'Hapus';
-                    removeButton.classList.add('ml-2', 'bg-red-500', 'hover:bg-red-700', 'text-white',
-                        'font-bold', 'py-2', 'px-4', 'rounded');
+                    removeButton.classList.add('ml-2', 'bg-red-500', 'hover:bg-red-700',
+                        'text-white', 'font-bold', 'py-2', 'px-4', 'rounded');
                     removeButton.addEventListener('click', function() {
                         editOptionsContainer.removeChild(optionWrapper);
                     });
@@ -734,7 +743,7 @@
                     // Append wrapper to container
                     editOptionsContainer.appendChild(optionWrapper);
                 });
-            }
+            });
 
             // For Add Modal
             const addOptionBtn = document.getElementById('add-option-btn');

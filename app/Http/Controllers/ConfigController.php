@@ -41,6 +41,11 @@ class ConfigController extends Controller
             'gmail' => 'required',
             'whatsapp_num' => 'required',
             'instagram' => 'required',
+            'operational' => 'required',
+            'visi' => 'required',
+            'misi' => 'required',
+            'map' => 'required',
+            'history' => 'required',
         ]);
 
         $config = Config::findOrFail($id);

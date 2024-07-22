@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use App\Models\AllServiceDetail;
 use App\Models\Config;
 use App\Models\Gallery;
@@ -60,6 +61,19 @@ class RouteController extends Controller
             'details' => $details,
             'all_details' => $all_details,
             'service_details' => $service_details,
+        ], compact('configs'));
+    }
+
+    public function activity(){
+        $configs = Config::latest()->first();
+        $galleries = Gallery::all();
+        $testimonials = Testimonial::all();
+        $activities = Activity::all();
+        return view('pages.activity', [
+            'page' => 'Activity',   
+            'galleries' => $galleries,
+            'testimonials' => $testimonials,    
+            'activities' => $activities
         ], compact('configs'));
     }
 
@@ -135,6 +149,15 @@ class RouteController extends Controller
         return view('admin.config', [
             'page' => 'Configuration',
         ], compact('configs'));
+    }
+
+    public function admin_activity()
+    {
+        $activity = Activity::all();
+        return view('admin.activity', [
+            'page' => 'Activity',
+            'activities' => $activity,
+        ]);
     }
 
     public function store_mail(Request $request)

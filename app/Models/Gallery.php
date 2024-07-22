@@ -14,9 +14,15 @@ class Gallery extends Model
 
     public function isPortrait()
     {
-        $imagePath = Storage::path($this->image);
-        $imageSize = getimagesize($imagePath);
+        $mediaPath = Storage::path($this->media);
 
-        return $imageSize[0] < $imageSize[1];
+        // Check if the file is an image
+        if (strpos(mime_content_type($mediaPath), 'image') !== false) {
+            $imageSize = getimagesize($mediaPath);
+            return $imageSize[0] < $imageSize[1];
+        }
+
+        // For videos or non-image files, assume it's not portrait
+        return false;
     }
 }

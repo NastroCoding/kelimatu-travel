@@ -14,7 +14,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -71,7 +71,7 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        //
+        
     }
 
     /**
@@ -79,15 +79,15 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
 {
-    // Validate input
+    
     $validatedData = $request->validate([
         'title' => 'required|string',
         'description' => 'nullable|string',
         'price' => 'required|numeric',
-        'options' => 'array', // Ensure options is an array
-        'options.*.id' => 'nullable|integer', // Ensure each option has an 'id' field that is nullable and an integer
-        'options.*.option' => 'required|string', // Ensure each option has an 'option' field that is required and a string
-        'options.*.icon' => 'required|string', // Ensure each option has an 'icon' field that is required and a string
+        'options' => 'array', 
+        'options.*.id' => 'nullable|integer', 
+        'options.*.option' => 'required|string', 
+        'options.*.icon' => 'required|string', 
     ]);
 
     $service = Service::findOrFail($id);
@@ -108,12 +108,12 @@ class ServiceController extends Controller
     $existingOptionsId = $service->options->pluck('id');
     $optionsToDelete = $existingOptionsId->diff($submittedOptions);
 
-    ServiceOption::where('id', $optionsToDelete)->delete();
+    ServiceOption::whereIn('id', $optionsToDelete)->delete();
 
     if (!empty($validatedData['options'])) {
         foreach ($validatedData['options'] as $optionData) {
             if (isset($optionData['id'])) {
-                // Update existing option
+                
                 $option = ServiceOption::find($optionData['id']);
                 if ($option) {
                     $option->option = $optionData['option'];
@@ -121,7 +121,7 @@ class ServiceController extends Controller
                     $option->save();
                 }
             } else {
-                // Create new option
+                
                 ServiceOption::create([
                     'service_id' => $service->id,
                     'option' => $optionData['option'],
@@ -132,7 +132,7 @@ class ServiceController extends Controller
         }
     }
 
-    // Redirect back with success message
+    
     return redirect()->back()->with('success', 'Service updated successfully');
 }
 
@@ -142,6 +142,10 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         $service = Service::find($id);
+        $filePath = storage_path('app/public/' . $service->image);
+        if (file_exists($filePath)) {
+            unlink($filePath); 
+        }
         $service->delete();
 
         return back()->with('success', 'Layanan berhasil di hapus!');

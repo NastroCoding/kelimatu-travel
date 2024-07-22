@@ -88,6 +88,10 @@ class TeamController extends Controller
     public function destroy(String $id)
     {
         $team = Team::find($id);
+        $filePath = storage_path('app/public/' . $team->image);
+        if (file_exists($filePath)) {
+            unlink($filePath); 
+        }
         $team->delete();
 
         return back()->with('success', 'Member tim berhasil di hapus!');

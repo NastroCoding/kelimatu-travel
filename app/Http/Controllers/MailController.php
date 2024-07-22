@@ -55,8 +55,25 @@ class MailController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Mail $mail)
+    public function destroy(Request $request)
     {
-        //
+        // Validate the incoming request to ensure 'ids' is a string
+        $request->validate([
+            'ids' => 'required|string',
+        ]);
+
+        // Convert the comma-separated string into an array
+        $ids = explode(',', $request->input('ids'));
+
+        // Validate each ID to ensure they exist in the 'mails' table
+        $request->validate([
+            'ids.*' => 'exists:mails,id',
+        ]);
+
+        // Delete the corresponding records
+        Mail::whereIn('id', $ids)->delete();
+
+        // Optionally, you can return a response or redirect
+        return redirect()->route('mails.index')->with('success', 'Selected mails deleted successfully.');
     }
 }

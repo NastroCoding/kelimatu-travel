@@ -48,7 +48,7 @@
                 <!-- Map -->
                 <div>
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d416.90209824202327!2d106.84648490626037!3d-6.228946038477268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f39231e44cfd%3A0xc599df0bb0956bf4!2sJl.%20Persada%20Raya%20No.70%2C%20RT.3%2FRW.15%2C%20Kuningan%2C%20Menteng%20Dalam%2C%20Kec.%20Tebet%2C%20Kota%20Jakarta%20Selatan%2C%20Daerah%20Khusus%20Ibukota%20Jakarta%2012870!5e0!3m2!1sen!2sid!4v1720001500411!5m2!1sen!2sid"
+                        src="{{ $configs->map  }}"
                         width="100%" height="700" style="border:0;" allowfullscreen="" loading="lazy"
                         class="transition rounded-md shadow-md" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>

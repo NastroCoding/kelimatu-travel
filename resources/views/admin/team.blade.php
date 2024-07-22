@@ -79,6 +79,7 @@
                                 <input type="hidden" name="old_image" value="{{ $team->image }}">
                                 <img id="image_preview_edit_{{ $team->id }}" src="{{ Storage::url($team->image) }}"
                                     class="mt-4 w-3/5 rounded-lg" />
+                                <span class="text-red-700 text-sm font-medium">* disarankan foto dengan aspek rasio 4:3 atau 1:1</span>
                             </div>
                             <div class="mb-5">
                                 <label for="nama" class="block mb-2 text-sm font-medium text-gray-900 ">Nama</label>
@@ -134,10 +135,11 @@
                     <div class="p-4 md:p-5 space-y-4">
                         <div class="mb-5">
                             <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input_add">Upload
-                                foto <span class="text-red-700">*</span></label>
+                                foto</label>
                             <input
                                 class="transition block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                                 id="file_input_add" name="image" type="file" accept="image/*">
+                                <span class="text-red-700 text-sm font-medium">* disarankan foto dengan aspek rasio 4:3 atau 1:1</span>
                             <img id="image_preview_add" class="mt-4 hidden w-3/5 rounded-lg" />
                         </div>
                         <div class="mb-5">

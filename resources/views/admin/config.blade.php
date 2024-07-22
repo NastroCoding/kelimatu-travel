@@ -20,12 +20,58 @@
         <div class="grid grid-cols-2 md:grid-cols-2 gap-6 mb-8 mt-8">
             <div class="bg-gray-100 flex flex-col p-8 rounded-md items-center shadow-md">
                 <div class="text-4xl text-[#671282] mb-4">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </div>
+                <h2 class="text-xl font-semibold mb-5">Visi</h2>
+                <textarea
+                    class="block transition p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Write your thoughts here..." rows="9" name="visi">{{ $configs->visi }}</textarea>
+            </div>
+            <div class="bg-gray-100 flex flex-col p-8 rounded-md items-center shadow-md">
+                <div class="text-4xl text-[#671282] mb-4">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </div>
+                <h2 class="text-xl font-semibold mb-5">Misi</h2>
+                <textarea
+                    class="block transition p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Write your thoughts here..." rows="9" name="misi">{{ $configs->misi }}</textarea>
+            </div>
+            <div class="bg-gray-100 flex flex-col p-8 rounded-md items-center shadow-md">
+                <div class="text-4xl text-[#671282] mb-4">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </div>
+                <h2 class="text-xl font-semibold mb-5">Sejarah</h2>
+                <textarea
+                    class="block transition p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Write your thoughts here..." rows="9" name="history">{{ $configs->history }}</textarea>
+            </div>
+            <div class="bg-gray-100 flex flex-col p-8 rounded-md items-center shadow-md">
+                <div class="text-4xl text-[#671282] mb-4">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </div>
+                <h2 class="text-xl font-semibold mb-5">Link Map</h2>
+                <textarea
+                    class="block transition p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Write your thoughts here..." rows="9" name="map">{{ $configs->map }}</textarea>
+                    <p class="mt-2 hover:underline text-blue-700"><a href="https://imgur.com/a/ochLoi2">Tutorial Mengambil Link Map</a></p>
+            </div>
+            <div class="bg-gray-100 flex flex-col p-8 rounded-md items-center shadow-md">
+                <div class="text-4xl text-[#671282] mb-4">
                     <i class="fa-solid fa-location-dot"></i>
                 </div>
-                <h2 class="text-xl font-semibold mb-2">Alamat</h2>
+                <h2 class="text-xl font-semibold mb-5">Alamat</h2>
                 <textarea
                     class="block transition p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Write your thoughts here..." rows="3" name="address">{{ $configs->address }}</textarea>
+            </div>
+            <div class="bg-gray-100 flex flex-col p-8 rounded-md items-center shadow-md">
+                <div class="text-4xl text-[#671282] mb-4">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+                <h2 class="text-xl font-semibold mb-5">Jam Operasional</h2>
+                <textarea
+                    class="block transition p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Write your thoughts here..." rows="3" name="operational">{{ $configs->operational }}</textarea>
             </div>
             <div class="bg-gray-100 flex flex-col p-8 rounded-md items-center shadow-md">
                 <div class="text-4xl text-[#671282] mb-4">
@@ -93,7 +139,7 @@
                 <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500">Select a phone number
                     that matches the format.</p>
             </div>
-            
+
             <div class="bg-gray-100 flex flex-col p-8 rounded-md items-center shadow-md">
                 <div class="text-4xl text-[#671282] mb-4">
                     <i class="fab fa-facebook"></i>

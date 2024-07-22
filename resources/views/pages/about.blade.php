@@ -2,7 +2,7 @@
 @section('container')
     <section id="visimisi">
         <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 mb-10">
-            <div class="relative h-40 flex items-center justify-center">
+            <div class="relative h-32 flex items-center justify-center">
                 <div class="absolute inset-0 bg-fixed bg-center bg-no-repeat bg-cover filter blur z-1"
                     style="background-image: url('{{ URL::asset('dist/assets/img/mecca-background2.jpg') }}');">
                 </div>
@@ -19,21 +19,14 @@
                 <div class="text-sejarah shadow-xl mx-1 bg-gray-700 p-8 rounded-lg ">
                     <h1 class="text-3xl text-white font-bold text-center my-2"> Visi </h1>
                     <hr>
-                    <p class="text-lg text-white"> Menjadi penyelenggara umroh terdepan dengan fasilitas
-                        terbaik,
-                        mengutamakan nilai spiritual dan kepuasan layanan kepada Tamu
-                        Allah.</p>
+                    <p class="text-lg text-white"> {{ $configs->visi }}.</p>
                 </div>
                 <div class="text-sejarah shadow-xl mx-1 bg-gray-700 p-8 rounded-lg mt-5 md:mt-0">
                     <h1 class="text-3xl text-white font-bold text-center my-2"> Misi </h1>
                     <hr>
-                    <p class="text-lg text-white mb-2">- Memberikan layanan terbaik, nyaman, kompetitif dan
-                        memuaskan bagi jamaah.</p>
-                    <p class="text-lg text-white mb-2">- Melakukan edukasi pemahaman kepada masyarakat dalam
-                        memilih penyelenggara umroh haji yang baik dan benar.</p>
-                    <p class="text-lg text-white mb-2">- Memberikan sentuhan nilai spiritual kepada jemaah.</p>
-                    <p class="text-lg text-white mb-2">- Menjaga dan merawat silaturahmi kepada jemaah pasca
-                        kepulangan dari Tanah Suci.</p>
+                    <p class="text-lg text-white mb-2">
+                        {!! nl2br(e($configs->misi)) !!}
+                    </p>
                 </div>
             </div>
 
@@ -68,7 +61,7 @@
 
     <section id="sejarah">
         <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 my-10">
-            <div class="relative h-40 flex items-center justify-center">
+            <div class="relative h-32 flex items-center justify-center">
                 <div class="absolute inset-0 bg-fixed bg-center bg-no-repeat bg-cover filter blur z-1"
                     style="background-image: url('{{ URL::asset('dist/assets/img/mecca-background3.jpg') }}');">
                 </div>
@@ -86,18 +79,7 @@
                         alt="">
                 </div>
                 <div class="text-sejarah shadow-xl bg-gray-700 border border-gray-200 dark:border-gray-700 p-8 rounded-lg ">
-                    <p class="text-lg text-white">Pada akuisisi saham PT. Emaar Pesona Wisata, pengurus baru PT. Emaar
-                        Pesona Wisata telah mengubah
-                        branding
-                        nama
-                        menjadi "Kelimatu Travel &
-                        Tours", dengan domisili yang tetap, serta memiliki izin PPIU (Penyelenggara Perjalanan Ibadah
-                        Umroh)
-                        dari
-                        Kementerian Agama RI dengan nomor 12860016215810006. Kami fokus pada penyediaan produk
-                        perjalanan
-                        ibadah umroh. Insya allah dalam waktu dekat kami akan segera mengurus PIHK (Penyelenggara Ibadah
-                        Haji Khusus)</p>
+                    <p class="text-lg text-white">{{ $configs->history }}</p>
                 </div>
             </div>
             <div
@@ -119,56 +101,14 @@
         </div>
     </section>
 
-    <section id="galeri">
-        <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 my-10">
-            <div class="relative h-40 flex items-center justify-center">
-                <div class="absolute inset-0 bg-fixed bg-center bg-no-repeat bg-cover filter blur z-1"
-                    style="background-image: url('{{ URL::asset('dist/assets/img/camera-background.jpg') }}');">
-                </div>
-                <h1
-                    class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-white text-center md:text-3xl lg:text-4xl z-10">
-                    Galeri
-                </h1>
-            </div>
-        </div>
-        
-        <div class="about-wrapper mx-auto">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                @php
-                    $landscapeImages = $galleries->filter(fn($gallery) => !$gallery->isPortrait());
-                    $portraitImages = $galleries->filter(fn($gallery) => $gallery->isPortrait());
-                @endphp
-        
-                @foreach ($landscapeImages as $gallery)
-                    <div class="relative">
-                        <a href="{{ Storage::url($gallery->image) }}">
-                            <img class="h-auto max-w-full rounded-lg" src="{{ Storage::url($gallery->image) }}"
-                                alt="" loading="lazy">
-                        </a>
-                    </div>
-                @endforeach
-        
-                @foreach ($portraitImages as $gallery)
-                    <div class="relative">
-                        <a href="{{ Storage::url($gallery->image) }}">
-                            <img class="h-auto max-w-full rounded-lg" src="{{ Storage::url($gallery->image) }}"
-                                alt="" loading="lazy">
-                        </a>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-        
-    </section>
-
     <section id="tim">
         <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 my-10">
-            <div class="relative h-40 flex items-center justify-center">
+            <div class="relative h-32 flex items-center justify-center">
                 <div class="absolute inset-0 bg-fixed bg-center bg-no-repeat bg-cover filter blur z-1"
                     style="background-image: url('{{ URL::asset('dist/assets/img/person-background.jpg') }}');">
                 </div>
-                <h1
-                    class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-white text-center md:text-3xl lg:text-4xl z-10">
+                <h1 class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-white text-center md:text-3xl lg:text-4xl z-10"
+                    style="text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5); -webkit-text-fill-color: white;">
                     Tim
                 </h1>
             </div>
@@ -196,4 +136,44 @@
             </div>
         </div>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('media-modal');
+            const modalContent = document.getElementById('modal-content');
+            const closeModal = document.getElementById('close-modal');
+
+            document.querySelectorAll('.open-modal').forEach(item => {
+                item.addEventListener('click', event => {
+                    event.preventDefault();
+                    const media = event.currentTarget.getAttribute('data-media');
+                    const type = event.currentTarget.getAttribute('data-type');
+
+                    let content = '';
+                    if (type === 'image') {
+                        content = `<img src="${media}" class="h-auto max-w-full rounded-lg" />`;
+                    } else {
+                        content = `
+                            <video class="h-auto max-w-full rounded-lg" controls>
+                                <source src="${media}" type="video/${media.split('.').pop()}">
+                                Your browser does not support the video tag.
+                            </video>
+                        `;
+                    }
+
+                    modalContent.innerHTML = content;
+                    modal.classList.remove('hidden');
+                });
+            });
+
+            closeModal.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+
+            modal.addEventListener('click', event => {
+                if (event.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+        });
+    </script>
 @endsection
