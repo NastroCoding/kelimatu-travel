@@ -12,6 +12,7 @@ use App\Models\ServiceDetail;
 use App\Models\ServiceOption;
 use App\Models\Team;
 use App\Models\Testimonial;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail as FacadesMail;
 use Illuminate\Support\Facades\Validator;
@@ -64,16 +65,44 @@ class RouteController extends Controller
         ], compact('configs'));
     }
 
-    public function activity(){
+    public function activity()
+    {
         $configs = Config::latest()->first();
         $galleries = Gallery::all();
         $testimonials = Testimonial::all();
         $activities = Activity::all();
         return view('pages.activity', [
-            'page' => 'Activity',   
+            'page' => 'Activity',
             'galleries' => $galleries,
-            'testimonials' => $testimonials,    
+            'testimonials' => $testimonials,
             'activities' => $activities
+        ], compact('configs'));
+    }
+
+    public function read($slug)
+    {
+        $configs = Config::latest()->first();
+        $galleries = Gallery::all();
+        $testimonials = Testimonial::all();
+
+        if(!$slug) {
+            return redirect()->back();
+        }
+
+        $activities = Activity::where('slug', $slug)->first();
+
+        $all_activities = Activity::all();
+
+        if(!$activities) {
+            return view('404', [ 'configs' => $configs ]);
+        }
+
+        return view('pages.activity-read', [
+            'page' => 'Read',
+            'galleries' => $galleries,
+            'testimonials' => $testimonials,
+            'activities' => $activities,
+            'all_activities' => $all_activities
         ], compact('configs'));
     }
 

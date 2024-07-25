@@ -15,9 +15,14 @@ return new class extends Migration
             $table->id();
             $table->text('image')->nullable();
             $table->string('title');
+            $table->string('slug')->unique();
             $table->text('description');
+            $table->string('topic_title')->nullable();
+            $table->string('topic_subtitle')->nullable();
+            $table->text('topic_description')->nullable();
             $table->date('date');
             $table->string('trademark')->nullable();
+            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

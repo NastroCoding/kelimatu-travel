@@ -1,6 +1,6 @@
 html,
 body {
-    background-color: #d7cbbf;
+    background-color: #FEFAF6;
     font-family: "Poppins";
     display: flex;
     flex-direction: column;
@@ -25,7 +25,7 @@ a {
 }
 
 #nav {
-    z-index: 2;
+    z-index: 20;
 }
 
 #hero {
@@ -104,6 +104,11 @@ a {
                 0 0 60px 30px rgba(255, 255, 255, 0.25),
                 0 0 80px 40px rgba(255, 255, 255, 0.25);
 }
+
+.glow-effect {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 5px rgba(255, 255, 255, 0.6), 0 0 7px rgba(255, 255, 255, 0.4);
+}
+
 
 .title-brand {
     color: #b70fb9;

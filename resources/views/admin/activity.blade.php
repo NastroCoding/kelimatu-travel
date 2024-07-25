@@ -23,8 +23,7 @@
             @php
                 $images = json_decode($activity->image, true);
             @endphp
-            <div
-                class="max-w-xl bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mb-5">
+            <div class="max-w-xl bg-white border border-white rounded-lg shadow-xl mb-5">
                 <div id="gallery-{{ $activity->id }}" class="relative w-full" data-carousel="slide">
                     <!-- Carousel wrapper -->
                     <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
@@ -78,18 +77,19 @@
 
                 <div class="p-5">
                     <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                             {{ $activity->title }}</h5>
                     </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $activity->description }}</p>
+                    <p class="mb-3 font-normal text-gray-700">{{ $activity->description }}</p>
                     <div class="flex justify-between">
-                        <p class="mb-3 font-normal text-xs text-gray-700 dark:text-gray-400">Ditulis Oleh:
-                            <br>{{ $activity->author }}</p>
-                        <p class="mb-3 font-normal text-xs text-gray-700 dark:text-gray-400">
+                        <p class="mb-3 font-normal text-xs text-gray-700">Ditulis Oleh: {{ $activity->trademark }}
+                        </p>
+                        <p class="mb-3 font-normal text-xs text-gray-700">
                             {{ \Carbon\Carbon::parse($activity->date)->format('d F Y') }}</p>
                     </div>
 
-                    <button href="#" data-modal-target="edit-modal" data-modal-toggle="edit-modal"
+                    <button href="#" data-modal-target="edit-modal{{ $activity->id }}"
+                        data-modal-toggle="edit-modal{{ $activity->id }}"
                         class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300">
                         Edit
                     </button>
@@ -97,93 +97,117 @@
                         class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 hover:bg-red-800 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300">
                         Delete
                     </button>
+                    <a href="/activity/{{ $activity->slug }}"
+                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 hover:bg-green-800 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300">
+                        Preview
+                    </a>
                 </div>
             </div>
         @endforeach
 
         <!-- Add more cards as needed -->
     </div>
-    <!-- Edit modal -->
-    <div id="edit-modal" aria-hidden="true" data-modal-backdrop="static"
-        class="hidden animate__animated animate__fadeIn animate__faster overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-2xl max-h-full">
-            <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow">
-                <!-- Modal header -->
-                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200">
-                    <h3 class="text-xl font-semibold text-gray-900">
-                        Edit Aktifitas
-                    </h3>
-                    <button type="button"
-                        class="transition text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                        data-modal-hide="edit-modal">
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                        </svg>
-                        <span class="sr-only">Tutup</span>
-                    </button>
+    @foreach ($activities as $activity)
+        @php
+            $images = json_decode($activity->image, true);
+        @endphp
+        <!-- Edit modal -->
+        <div id="edit-modal{{ $activity->id }}" aria-hidden="true" data-modal-backdrop="static"
+            class="hidden animate__animated animate__fadeIn animate__faster overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-2xl max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-200">
+                        <h3 class="text-xl font-semibold text-gray-900">
+                            Edit Aktifitas
+                        </h3>
+                        <button type="button"
+                            class="transition text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                            data-modal-hide="edit-modal{{ $activity->id }}">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                            <span class="sr-only">Tutup</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <form id="editImageUploadForm" method="post" action="/admin/activity/edit/{{ $activity->id }}"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="p-4 md:p-5 space-y-4">
+                            <div class="mb-5">
+                                <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input_edit">Upload
+                                    foto</label>
+                                <input
+                                    class="transition block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                                    id="file_input_edit" name="image" type="file" accept="image/*" multiple>
+                                <span class="text-red-700 text-sm font-medium">* disarankan foto dengan aspek rasio
+                                    16:9</span><br>
+                                <span class="text-red-700 text-sm font-medium">* upload maksimal 3 foto</span>
+                                <div id="image_preview_edit" class="mt-4 w-3/5 rounded-lg">
+                                    @if (is_array($images) && !empty($images))
+                                        @foreach ($images as $index => $image)
+                                            <img class="w-full rounded-lg mb-4" src="{{ asset('storage/' . $image) }}">
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="mb-5">
+                                <label for="judul_edit" class="block mb-2 text-sm font-medium text-gray-900 ">Judul<span
+                                        class="text-red-700">*</span></label>
+                                <input type="text" id="judul_edit" name="name" placeholder="Masukkan Judul"
+                                    class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    required value="{{ $activity->title }}" />
+                            </div>
+                            <div class="mb-5">
+                                <label for="message_edit"
+                                    class="block mb-2 text-sm font-medium text-gray-900">Deskripsi<span
+                                        class="text-red-700">*</span></label>
+                                <textarea id="message_edit" rows="4" name="description"
+                                    class="transition block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Masukkan Deskripsi, Contoh : Sebagai Direktur, Sebagai Digital Marketing">{{ $activity->description }}</textarea>
+                            </div>
+                            <div id="edit-topics-container{{ $activity->id }}">
+
+                            </div>
+                            <button type="button" id="edit-add-topic{{ $activity->id }}"
+                                class="bg-green-500 text-white p-2 rounded">Tambah
+                                Topik</button>
+                            <div class="flex justify-between">
+                                <div class="mb-5">
+                                    <label for="penulis_edit"
+                                        class="block mb-2 text-sm font-medium text-gray-900 ">Penulis<span
+                                            class="text-red-700">*</span></label>
+                                    <input type="text" id="penulis_edit" name="author" placeholder="Masukkan Nama"
+                                        class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        required value="{{ $activity->author }}" />
+                                </div>
+                                <div class="mb-5">
+                                    <label for="tanggal_edit"
+                                        class="block mb-2 text-sm font-medium text-gray-900 ">Tanggal<span
+                                            class="text-red-700">*</span></label>
+                                    <input type="date" id="tanggal_edit" name="date"
+                                        placeholder="Masukkan Tanggal"
+                                        class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        required value="{{ $activity->date }}" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
+                            <button type="submit"
+                                class="text-white transition bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Edit</button>
+                            <button data-modal-hide="edit-modal{{ $activity->id }}" type="button"
+                                class="py-2.5 px-5 ms-3 transition text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100">Tutup</button>
+                        </div>
+                    </form>
                 </div>
-                <!-- Modal body -->
-                <form id="editImageUploadForm" method="post" action="/admin/team/post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="p-4 md:p-5 space-y-4">
-                        <div class="mb-5">
-                            <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input_edit">Upload
-                                foto</label>
-                            <input
-                                class="transition block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                                id="file_input_edit" name="image" type="file" accept="image/*" multiple>
-                            <span class="text-red-700 text-sm font-medium">* disarankan foto dengan aspek rasio
-                                16:9</span><br>
-                            <span class="text-red-700 text-sm font-medium">* upload maksimal 3 foto</span>
-                            <div id="image_preview_edit" class="mt-4 hidden w-3/5 rounded-lg"></div>
-                        </div>
-                        <div class="mb-5">
-                            <label for="judul_edit" class="block mb-2 text-sm font-medium text-gray-900 ">Judul<span
-                                    class="text-red-700">*</span></label>
-                            <input type="text" id="judul_edit" name="name" placeholder="Masukkan Judul"
-                                class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                required />
-                        </div>
-                        <div class="mb-5">
-                            <label for="message_edit" class="block mb-2 text-sm font-medium text-gray-900">Deskripsi<span
-                                    class="text-red-700">*</span></label>
-                            <textarea id="message_edit" rows="4" name="description"
-                                class="transition block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                                placeholder="Masukkan Deskripsi, Contoh : Sebagai Direktur, Sebagai Digital Marketing"></textarea>
-                        </div>
-                        <div class="flex justify-between">
-                            <div class="mb-5">
-                                <label for="penulis_edit"
-                                    class="block mb-2 text-sm font-medium text-gray-900 ">Penulis<span
-                                        class="text-red-700">*</span></label>
-                                <input type="text" id="penulis_edit" name="author" placeholder="Masukkan Nama"
-                                    class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    required />
-                            </div>
-                            <div class="mb-5">
-                                <label for="tanggal_edit"
-                                    class="block mb-2 text-sm font-medium text-gray-900 ">Tanggal<span
-                                        class="text-red-700">*</span></label>
-                                <input type="date" id="tanggal_edit" name="date" placeholder="Masukkan Tanggal"
-                                    class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    required />
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal footer -->
-                    <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
-                        <button type="submit"
-                            class="text-white transition bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Edit</button>
-                        <button data-modal-hide="edit-modal" type="button"
-                            class="py-2.5 px-5 ms-3 transition text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100">Tutup</button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
+    @endforeach
 
     <!-- Main modal -->
     <div id="add-modal" aria-hidden="true" data-modal-backdrop="static"
@@ -220,34 +244,46 @@
                             <span class="text-red-700 text-sm font-medium">* disarankan foto dengan aspek rasio
                                 16:9</span><br>
                             <span class="text-red-700 text-sm font-medium">* upload maksimal 3 foto</span>
-                            <div id="image_preview_add" class="mt-4 hidden w-3/5 rounded-lg">
-
-                            </div>
+                            <div id="image_preview_add" class="mt-4 hidden w-3/5 rounded-lg"></div>
                         </div>
                         <div class="mb-5">
-                            <label for="judul" class="block mb-2 text-sm font-medium text-gray-900 ">Judul<span
-                                    class="text-red-700">*</span></label>
-                            <input type="text" id="judul" name="title" placeholder="Masukkan Judul"
+                            <label for="judul" class="block mb-2 text-sm font-medium text-gray-900">Judul
+                                Aktifitas<span class="text-red-700">*</span></label>
+                            <input type="text" id="judul" name="title" placeholder="Masukkan Judul Aktifitas"
                                 class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required />
                         </div>
                         <div class="mb-5">
-                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Deskripsi<span
-                                    class="text-red-700">*</span></label>
+                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Deskripsi
+                                Aktifitas<span class="text-red-700">*</span></label>
                             <textarea id="message" rows="4" name="description"
                                 class="transition block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                                placeholder="Masukkan Deskripsi, Contoh : Sebagai Direktur, Sebagai Digital Marketing"></textarea>
+                                placeholder="Masukkan Deskripsi Aktifitas"></textarea>
                         </div>
-                        <div class="flex justify-between">
+                        <div class="mb-5">
+                            <label class="block mb-2 text-sm font-medium text-gray-900">Topik<span
+                                    class="text-red-700">*</span></label>
+                            <input type="text" name="topic_title" placeholder="Masukkan Judul Topik"
+                                class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                required />
+                            <label class="block my-2 text-sm font-medium text-gray-900">Subtopik</label>
+                            <input type="text" name="topic_subtopic" placeholder="Masukkan Subtopik"
+                                class="mb-1 transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                required />
+                            <label class="block my-2 text-sm font-medium text-gray-900">Deskripsi Topik</label>
+                            <div id="editor-container" class="h-40 bg-gray-50 border border-gray-300 rounded-lg mb-5">
+                            </div>
+                            <input type="hidden" name="topic_description" id="hidden-description" />
+                        </div>
+                        <div class="flex justify-between mt-5">
                             <div class="mb-5">
-                                <label for="penulis"
-                                    class="block mb-2 text-sm font-medium text-gray-900 ">Penulis</label>
+                                <label for="penulis" class="block mb-2 text-sm font-medium text-gray-900">Penulis</label>
                                 <input type="text" id="penulis" name="author" placeholder="Masukkan Nama"
                                     class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     required />
                             </div>
                             <div class="mb-5">
-                                <label for="tanggal" class="block mb-2 text-sm font-medium text-gray-900 ">Tanggal<span
+                                <label for="tanggal" class="block mb-2 text-sm font-medium text-gray-900">Tanggal<span
                                         class="text-red-700">*</span></label>
                                 <input type="date" id="tanggal" name="date" placeholder="Masukkan Tanggal"
                                     class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -255,7 +291,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Modal footer -->
                     <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
                         <button type="submit"
                             class="text-white transition bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Tambah</button>
@@ -370,6 +405,19 @@
                     previewContainer.addClass('hidden');
                 }
             }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var quill = new Quill('#editor-container', {
+                theme: 'snow'
+            });
+
+            document.getElementById('add-activity-form').addEventListener('submit', function() {
+                const quill = Quill.find(document.querySelector(`#editor-container`));
+                if (quill) {
+                    document.getElementById(`hidden-description`).value = quill.root.innerHTML;
+                }
+            });
         });
     </script>
 @endsection

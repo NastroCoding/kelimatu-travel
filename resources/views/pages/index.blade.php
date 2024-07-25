@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('container')
     <div class="jumbotron" id="content">
-        <div class="main-left mx-[5%] bg-white bg-opacity-60 rounded-lg p-10 aura-div">
+        <div class="main-left mx-[5%] mt-24 bg-white bg-opacity-60 rounded-lg p-10 aura-div ">
             <p class="font-bold">Rasakan kedamaian di Tanah Suci bersama Kami</p>
             <h1 class="title-brand lg:text-6xl md:text-5xl text-3xl my-3 aura-text">
                 Kelimatu <br> <span><u>Travel & Tours</u></span>
@@ -11,7 +11,7 @@
             <a href="/about-us" class="about-anchor"><button class="about-button mt-5 font-bold">Profil Kami</button></a>
         </div>
 
-        <div class="main-right mt-8 mb-8">
+        <div class="main-right mt-24 mb-8">
             <img src="{{ URL::asset('dist/assets/img/kaabah.png') }}" class="custom-background" alt="">
         </div>
     </div>
@@ -138,7 +138,7 @@
         </div>
     </div>
 
-    <div class="bg-gray-100">
+    <div>
         <div class="container mx-auto p-4">
             <h1 class="text-3xl font-bold text-center my-8">Testimoni Para Jama'ah</h1>
 
@@ -154,7 +154,7 @@
                 <div id="carousel" class="testimonial-carousel overflow-x-auto flex gap-4 px-10 lg:px-32 py-8 snap-x">
                     @foreach ($testimonials as $testimonial)
                         <div
-                            class="testimonial-item flex-shrink-0 w-80 md:w-96 bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center relative min-h-[400px]">
+                            class="testimonial-item flex-shrink-0 w-80 md:w-96 bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center relative min-h-[400px]">
                             <img src="{{ $testimonial->image ? Storage::url($testimonial->image) : 'https://via.placeholder.com/100' }}"
                                 alt="Aqil"
                                 class="w-16 h-20 rounded-full overflow-hidden border-2 border-gray-200 mb-4 object-cover">

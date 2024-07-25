@@ -15,105 +15,112 @@
     <link rel="stylesheet" href="{{ URL::asset('dist/css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/5cedab7152.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 
 <body>
+    <div class="bg-gray-700">
+        <nav class="bg-gradient-to-l from-[#671282] to-gray-700 p-3 shadow-xl w-11/12 mx-auto my-5 rounded-xl absolute left-1/2 transform -translate-x-1/2 top-2"
+            id="nav">
+            <div class="max-w-7xl mx-autor flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center justify-center">
+                    <!-- Container with background color and opacity -->
+                    <div class="bg-white rounded-xl p-1 glow-effect">
+                        <!-- Logo with original classes -->
+                        <img class="w-8 sm:w-10 md:w-12 lg:w-16 xl:w-18 max-w-full max-h-full h-auto"
+                            src="{{ URL::asset('dist/assets/img/kelimatu_logo.png') }}"
+                            alt="Kelimatu Travel & Tours Logo">
+                    </div>
 
-    <nav class="bg-[#d7cbbf] p-4 shadow-md" id="nav">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <!-- Logo -->
-            <div class="flex items-center justify-center">
-                <!-- Container with background color and opacity -->
-                <div class="bg-[#d7cbbf] bg-opacity-70 rounded-md p-1">
-                    <!-- Logo with original classes -->
-                    <img class="w-8 sm:w-10 md:w-12 lg:w-16 xl:w-18 max-w-full max-h-full h-auto"
-                        src="{{ URL::asset('dist/assets/img/kelimatu_logo.png') }}" alt="Kelimatu Travel & Tours Logo">
+                </div>
+                <!-- Links -->
+                <div class="hidden lg:flex space-x-4 text-center relative mx-3">
+                    <a href="/"
+                        class="text-white font-bold transition duration-150 ease-in-out hover:text-gray-200">Beranda</a>
+                    <div class="relative group">
+                        <a href="/activity"
+                            class="text-white font-bold duration-150 ease-in-out hover:text-gray-200 inline-block">Aktifitas</a>
+                        <div
+                            class="absolute left-0 mt-2 w-30 bg-white rounded-md hover:rounded-md transition shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 ease-in-out z-10">
+                            <a href="/activity#galeri"
+                                class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Galeri</a>
+                            <a href="/activity#testimony"
+                                class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Testimoni</a>
+                        </div>
+                    </div>
+                    <!-- About with Dropdown -->
+                    <div class="relative group">
+                        <a href="/about-us"
+                            class="text-white font-bold duration-150 ease-in-out hover:text-gray-200 inline-block">Profil</a>
+                        <div
+                            class="absolute left-0 mt-2 w-40 bg-white rounded-md hover:rounded-md transition shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 ease-in-out z-10">
+                            <a href="/about-us#visimisi"
+                                class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Visi
+                                & Misi</a>
+                            <a href="/about-us#sejarah"
+                                class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Sejarah</a>
+                            <a href="/about-us#galeri"
+                                class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Galeri</a>
+                            <a href="/about-us#tim"
+                                class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Tim</a>
+                        </div>
+                    </div>
+
+                    <a href="/services"
+                        class="text-white font-bold transition duration-150 ease-in-out hover:text-gray-200"> Paket
+                        Layanan </a>
+                    <a href="/contact-us"
+                        class="text-white font-bold transition duration-150 ease-in-out hover:text-gray-200">Kontak</a>
+                </div>
+                <!-- Hamburger Menu Button -->
+                <div class="lg:hidden">
+                    <button id="menu-button" class="text-white focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
                 </div>
             </div>
-            <!-- Links -->
-            <div class="hidden lg:flex space-x-4 text-center relative">
-                <a href="/"
-                    class="text-[#671282] font-bold transition duration-150 ease-in-out hover:text-[#b70fb9]">Beranda</a>
-                <div class="relative group">
-                    <a href="/activity"
-                        class="text-[#671282] font-bold duration-150 ease-in-out hover:text-[#b70fb9] inline-block">Aktifitas</a>
-                    <div
-                        class="absolute left-0 mt-2 w-30 bg-white rounded-md hover:rounded-md transition shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 ease-in-out z-10">
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="lg:hidden hidden flex flex-col space-y-2 mt-4">
+                <a href="/" class="text-white font-bold transition hover:text-gray-200">Beranda</a>
+                <div class="relative">
+                    <button id="about-button"
+                        class="text-white font-bold transition hover:text-gray-200">Aktifitas</button>
+                    <div id="about-dropdown"
+                        class="hidden flex flex-col space-y-2 mt-2 bg-[#d7cbbf] rounded-md shadow-lg p-2">
+                        <a href="/activity" class="text-white font-bold transition hover:text-gray-200">Aktifitas</a>
                         <a href="/activity#galeri"
-                            class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Galeri</a>
-                        <a href="/activity#testimony"
-                            class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Testimoni</a>
+                            class="text-white font-bold transition hover:text-gray-200">Galeri</a>
                     </div>
                 </div>
                 <!-- About with Dropdown -->
-                <div class="relative group">
-                    <a href="/about-us"
-                        class="text-[#671282] font-bold duration-150 ease-in-out hover:text-[#b70fb9] inline-block">Profil</a>
-                    <div
-                        class="absolute left-0 mt-2 w-40 bg-white rounded-md hover:rounded-md transition shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 ease-in-out z-10">
-                        <a href="/about-us#visimisi"
-                            class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Visi
-                            & Misi</a>
+                <div class="relative">
+                    <button id="about-button"
+                        class="text-white font-bold transition hover:text-gray-200">Profil</button>
+                    <div id="about-dropdown"
+                        class="hidden flex flex-col space-y-2 mt-2 bg-[#d7cbbf] rounded-md shadow-lg p-2">
+                        <a href="/about-us" class="text-white font-bold transition hover:text-gray-200">Visi & Misi</a>
                         <a href="/about-us#sejarah"
-                            class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Sejarah</a>
+                            class="text-white font-bold transition hover:text-gray-200">Sejarah</a>
                         <a href="/about-us#galeri"
-                            class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Galeri</a>
-                        <a href="/about-us#tim"
-                            class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Tim</a>
+                            class="text-white font-bold transition hover:text-gray-200">Galeri</a>
+                        <a href="/about-us#tim" class="text-white font-bold transition hover:text-gray-200">Tim</a>
                     </div>
                 </div>
 
-                <a href="/services"
-                    class="text-[#671282] font-bold transition duration-150 ease-in-out hover:text-[#b70fb9]"> Paket
-                    Layanan </a>
-                <a href="/contact-us"
-                    class="text-[#671282] font-bold transition duration-150 ease-in-out hover:text-[#b70fb9]">Kontak</a>
+                <a href="#" class="text-white font-bold transition hover:text-gray-200"> Paket Layanan </a>
+                <a href="/contact-us" class="text-white font-bold transition hover:text-gray-200">Kontak</a>
             </div>
-            <!-- Hamburger Menu Button -->
-            <div class="lg:hidden">
-                <button id="menu-button" class="text-[#671282] focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="lg:hidden hidden flex flex-col space-y-2 mt-4">
-            <a href="/" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Beranda</a>
-            <div class="relative">
-                <button id="about-button"
-                    class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Aktifitas</button>
-                <div id="about-dropdown"
-                    class="hidden flex flex-col space-y-2 mt-2 bg-[#d7cbbf] rounded-md shadow-lg p-2">
-                    <a href="/activity" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Aktifitas</a>
-                    <a href="/activity#galeri"
-                        class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Galeri</a>
-                </div>
-            </div>
-            <!-- About with Dropdown -->
-            <div class="relative">
-                <button id="about-button"
-                    class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Profil</button>
-                <div id="about-dropdown"
-                    class="hidden flex flex-col space-y-2 mt-2 bg-[#d7cbbf] rounded-md shadow-lg p-2">
-                    <a href="/about-us" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Visi & Misi</a>
-                    <a href="/about-us#sejarah"
-                        class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Sejarah</a>
-                    <a href="/about-us#galeri"
-                        class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Galeri</a>
-                    <a href="/about-us#tim" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Tim</a>
-                </div>
-            </div>
+        </nav>
 
-            <a href="#" class="text-[#671282] font-bold transition hover:text-[#b70fb9]"> Paket Layanan </a>
-            <a href="/contact-us" class="text-[#671282] font-bold transition hover:text-[#b70fb9]">Kontak</a>
-        </div>
-    </nav>
+    </div>
 
-    <section id="hero">
+    <section id="hero" class="@if ($page != 'Index') mt-36 md:mt-40 @endif">
         @yield('container')
     </section>
 
@@ -231,7 +238,6 @@
 </body>
 <script src="https://kit.fontawesome.com/a05b563fe6.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
-<script src="https://cdn.tailwindcss.com"></script>
 <script>
     document.getElementById('menu-button').addEventListener('click', () => {
         const mobileMenu = document.getElementById('mobile-menu');

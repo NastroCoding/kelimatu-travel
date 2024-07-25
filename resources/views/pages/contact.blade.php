@@ -2,7 +2,7 @@
 
 @section('container')
 
-    <div class="container mx-auto mt-10">
+    <div class="container mx-auto">
         <div class=" p-8 ">
             <h1 class="text-3xl font-bold mb-8 text-center">Kontak Kami</h1>
 

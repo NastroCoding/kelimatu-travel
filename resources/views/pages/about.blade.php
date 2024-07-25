@@ -15,15 +15,15 @@
 
         <div class="about-wrapper mx-auto">
 
-            <div class="md:flex">
-                <div class="text-sejarah shadow-xl mx-1 bg-gray-700 p-8 rounded-lg ">
+            <div class="">
+                <div class="text-sejarah shadow-xl mx-1 bg-gray-700 p-8 rounded-lg mb-2 ">
                     <h1 class="text-3xl text-white font-bold text-center my-2"> Visi </h1>
-                    <hr>
+                    <hr class="mb-2 w-1/4 mx-auto">
                     <p class="text-lg text-white"> {{ $configs->visi }}.</p>
                 </div>
                 <div class="text-sejarah shadow-xl mx-1 bg-gray-700 p-8 rounded-lg mt-5 md:mt-0">
                     <h1 class="text-3xl text-white font-bold text-center my-2"> Misi </h1>
-                    <hr>
+                    <hr class="mb-2 w-1/4 mx-auto">
                     <p class="text-lg text-white mb-2">
                         {!! nl2br(e($configs->misi)) !!}
                     </p>

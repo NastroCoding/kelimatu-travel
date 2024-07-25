@@ -28,6 +28,7 @@ Route::controller(RouteController::class)->group(function(){
     Route::get('/contact-us', 'contact');
     Route::get('/services', 'services');
     Route::get('/activity', 'activity');
+    Route::get('/activity/{slug}', 'read');
 
     Route::post('/mail/add', 'store_mail');
 

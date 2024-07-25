@@ -13,6 +13,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/5cedab7152.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
     <style>
@@ -23,7 +26,7 @@
 </head>
 
 <body>
-    <nav class="fixed top-0 z-50 w-full border-b bg-white border-gray-200">
+    <nav class="fixed top-0 z-40 w-full border-b bg-white border-gray-200">
         <div class="px-3 py-3 lg:px-5 lg:pl-3 flex items-center justify-between">
             <div class="flex items-center justify-start">
                 <button id="hamburger-btn" type="button"
