@@ -232,33 +232,6 @@ a {
     color: #fff;
 }
 
-.about-button {
-    background-color: transparent;
-    border: #000 2px solid;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 50px;
-    width: 40%;
-    margin: 5px auto;
-    transition: 0.2s;
-}
-
-.about-button:hover {
-    background-color: #b70fb9;
-    border: #fff 2px solid;
-    color: #fff;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 50px;
-    width: 40%;
-}
-
 .contact-button {
     background-color: transparent;
     border: #fff 2px solid;

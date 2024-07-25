@@ -34,14 +34,14 @@
                         <h5 class="mt-2 text-lg tracking-tight text-white text-center">Detail Paket :</h5>
 
                         @foreach ($details->where('service_id', $service->id) as $detail)
-                        <div class="flex items-center mb-2 text-white">
-                            <div class="w-6 text-center">
-                                <i class="{{ $detail->icon }} text-lg"></i>
+                            <div class="flex items-center mb-2 text-white">
+                                <div class="w-6 text-center">
+                                    <i class="{{ $detail->icon }} text-lg"></i>
+                                </div>
+                                <div class="ml-2">
+                                    {{ $detail->option }}
+                                </div>
                             </div>
-                            <div class="ml-2">
-                                {{ $detail->option }}
-                            </div>
-                        </div>
                         @endforeach
 
                         <a href="#"
@@ -212,40 +212,25 @@
                                 <!-- Modal body -->
 
                                 <div class="p-4 md:p-5 space-y-4">
-                                    @if ($service_details->isEmpty())
-                                        <div class="mb-5">
-                                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900">
-                                                Deskripsi Tambahan Paket Layanan :</label>
-                                            <textarea name="description" rows="2" id="description"
-                                                class="transition block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                                                placeholder="Deskripsi Tambahan ... (dapat dikosongkan)"></textarea>
-                                        </div>
-                                        <div class="mb-5">
-                                            <label for="guider"
-                                                class="block mb-2 text-sm font-medium text-gray-900">Nama
-                                                Tour Leader :</label>
-                                            <input type="text" name="guider" id=""
-                                                class="transition block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                                                placeholder="Masukkan Nama">
-                                        </div>
-                                    @endif
-                                    @foreach ($service_details->where('service_id', $service->id) as $service_detail)
-                                        <div class="mb-5">
-                                            <label for="description" class="block mb-2 text-sm font-medium text-gray-900">
-                                                Deskripsi Tambahan Paket Layanan :</label>
-                                            <textarea name="description" rows="2" id="description"
-                                                class="transition block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                                                placeholder="Deskripsi Tambahan ... (dapat dikosongkan)">{{ $service_detail->description }}</textarea>
-                                        </div>
-                                        <div class="mb-5">
-                                            <label for="guider"
-                                                class="block mb-2 text-sm font-medium text-gray-900">Nama
-                                                Tour Leader :</label>
-                                            <input type="text" name="guider" id=""
-                                                class="transition block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                                                placeholder="Masukkan Nama" value="{{ $service_detail->guider }}">
-                                        </div>
-                                    @endforeach
+                                    @php
+                                        $serviceDetail = $service_details->where('service_id', $service->id)->first();
+                                    @endphp
+
+                                    <div class="mb-5">
+                                        <label for="description" class="block mb-2 text-sm font-medium text-gray-900">
+                                            Deskripsi Tambahan Paket Layanan :</label>
+                                        <textarea name="description" rows="2" id="description"
+                                            class="transition block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                            placeholder="Deskripsi Tambahan ... (dapat dikosongkan)">{{ $serviceDetail->description ?? '' }}</textarea>
+                                    </div>
+                                    <div class="mb-5">
+                                        <label for="guider" class="block mb-2 text-sm font-medium text-gray-900">
+                                            Nama Tour Leader :</label>
+                                        <input type="text" name="guider" id="guider"
+                                            class="transition block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                            placeholder="Masukkan Nama" value="{{ $serviceDetail->guider ?? '' }}">
+                                    </div>
+
 
                                     <!-- Dynamic Options Input -->
                                     <div class="mb-5">
@@ -531,7 +516,8 @@
                             <input
                                 class="transition block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                                 id="file_input" name="image" type="file" accept="image/*">
-                                <span class="text-red-700 text-sm font-medium">* disarankan foto dengan resolusi yang sama</span>
+                            <span class="text-red-700 text-sm font-medium">* disarankan foto dengan resolusi yang
+                                sama</span>
                             <img id="image_preview" class="mt-4 hidden w-3/5 rounded-lg" />
                         </div>
                         <div class="mb-5">

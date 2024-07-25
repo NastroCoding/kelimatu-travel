@@ -93,10 +93,12 @@
                         class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300">
                         Edit
                     </button>
-                    <button href="#" data-modal-target="delete-modal" data-modal-toggle="delete-modal"
-                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 hover:bg-red-800 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300">
+                    <a href="#" data-modal-target="delete-modal" data-modal-toggle="delete-modal"
+                        data-id="{{ $activity->id }}"
+                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center 
+                        text-white bg-red-700 hover:bg-red-800 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 delete-btn">
                         Delete
-                    </button>
+                    </a>
                     <a href="/activity/{{ $activity->slug }}"
                         class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 hover:bg-green-800 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300">
                         Preview
@@ -134,8 +136,8 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <form id="editImageUploadForm" method="post" action="/admin/activity/edit/{{ $activity->id }}"
-                        enctype="multipart/form-data">
+                    <form id="edit-activity-form-{{ $activity->id }}" method="post"
+                        action="/admin/activity/edit/{{ $activity->id }}" enctype="multipart/form-data">
                         @csrf
                         <div class="p-4 md:p-5 space-y-4">
                             <div class="mb-5">
@@ -143,71 +145,85 @@
                                     foto</label>
                                 <input
                                     class="transition block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                                    id="file_input_edit" name="image" type="file" accept="image/*" multiple>
+                                    id="file_input_edit" name="image[]" type="file" accept="image/*" multiple>
                                 <span class="text-red-700 text-sm font-medium">* disarankan foto dengan aspek rasio
                                     16:9</span><br>
                                 <span class="text-red-700 text-sm font-medium">* upload maksimal 3 foto</span>
                                 <div id="image_preview_edit" class="mt-4 w-3/5 rounded-lg">
-                                    @if (is_array($images) && !empty($images))
-                                        @foreach ($images as $index => $image)
-                                            <img class="w-full rounded-lg mb-4" src="{{ asset('storage/' . $image) }}">
+                                    @if ($activity->image)
+                                        @foreach (json_decode($activity->image, true) as $image)
+                                            <div class="relative mb-2 inline-block">
+                                                <img src="{{ asset('storage/' . $image) }}" width="100">
+                                                <button type="button" data-image-path="{{ $image }}"
+                                                    class="delete-image-button absolute top-0 right-0 bg-red-500 text-white rounded-full px-2 py-1">X</button>
+                                            </div>
                                         @endforeach
                                     @endif
                                 </div>
                             </div>
                             <div class="mb-5">
-                                <label for="judul_edit" class="block mb-2 text-sm font-medium text-gray-900 ">Judul<span
-                                        class="text-red-700">*</span></label>
-                                <input type="text" id="judul_edit" name="name" placeholder="Masukkan Judul"
+                                <label for="judul" class="block mb-2 text-sm font-medium text-gray-900">Judul
+                                    Aktifitas<span class="text-red-700">*</span></label>
+                                <input type="text" id="judul" name="title"
+                                    placeholder="Masukkan Judul Aktifitas"
                                     class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    required value="{{ $activity->title }}" />
+                                    value="{{ $activity->title }}" required />
                             </div>
                             <div class="mb-5">
-                                <label for="message_edit"
-                                    class="block mb-2 text-sm font-medium text-gray-900">Deskripsi<span
-                                        class="text-red-700">*</span></label>
-                                <textarea id="message_edit" rows="4" name="description"
+                                <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Deskripsi
+                                    Aktifitas<span class="text-red-700">*</span></label>
+                                <textarea id="message" rows="4" name="description"
                                     class="transition block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                                    placeholder="Masukkan Deskripsi, Contoh : Sebagai Direktur, Sebagai Digital Marketing">{{ $activity->description }}</textarea>
+                                    placeholder="Masukkan Deskripsi Aktifitas" required>{{ $activity->description }}</textarea>
                             </div>
-                            <div id="edit-topics-container{{ $activity->id }}">
-
+                            <div class="mb-5">
+                                <label class="block mb-2 text-sm font-medium text-gray-900">Topik<span
+                                        class="text-red-700">*</span></label>
+                                <input type="text" name="topic_title" placeholder="Masukkan Judul Topik"
+                                    class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    value="{{ $activity->topic_title }}" required />
+                                <label class="block my-2 text-sm font-medium text-gray-900">Subtopik</label>
+                                <input type="text" name="topic_subtopic" placeholder="Masukkan Subtopik"
+                                    class="mb-1 transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    value="{{ $activity->topic_subtitle }}" required />
+                                <label class="block my-2 text-sm font-medium text-gray-900">Deskripsi Topik</label>
+                                <label class="block mb-2 text-sm font-medium text-gray-900">Deskripsi Topik</label>
+                                <div id="editor-container-edit-{{ $activity->id }}"
+                                    class="h-40 bg-gray-50 border border-gray-300 rounded-lg mb-5">{!! $activity->topic_description !!}
+                                </div>
+                                <input type="hidden" name="topic_description"
+                                    id="hidden-description-edit-{{ $activity->id }}" />
                             </div>
-                            <button type="button" id="edit-add-topic{{ $activity->id }}"
-                                class="bg-green-500 text-white p-2 rounded">Tambah
-                                Topik</button>
-                            <div class="flex justify-between">
+                            <div class="flex justify-between mt-5">
                                 <div class="mb-5">
-                                    <label for="penulis_edit"
-                                        class="block mb-2 text-sm font-medium text-gray-900 ">Penulis<span
-                                            class="text-red-700">*</span></label>
-                                    <input type="text" id="penulis_edit" name="author" placeholder="Masukkan Nama"
+                                    <label for="penulis"
+                                        class="block mb-2 text-sm font-medium text-gray-900">Penulis</label>
+                                    <input type="text" id="penulis" name="author" placeholder="Masukkan Nama"
                                         class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                        required value="{{ $activity->author }}" />
+                                        value="{{ $activity->trademark }}" required />
                                 </div>
                                 <div class="mb-5">
-                                    <label for="tanggal_edit"
-                                        class="block mb-2 text-sm font-medium text-gray-900 ">Tanggal<span
+                                    <label for="tanggal"
+                                        class="block mb-2 text-sm font-medium text-gray-900">Tanggal<span
                                             class="text-red-700">*</span></label>
-                                    <input type="date" id="tanggal_edit" name="date"
-                                        placeholder="Masukkan Tanggal"
+                                    <input type="date" id="tanggal" name="date" placeholder="Masukkan Tanggal"
                                         class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                        required value="{{ $activity->date }}" />
+                                        value="{{ $activity->date }}" required />
                                 </div>
                             </div>
                         </div>
-                        <!-- Modal footer -->
                         <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
                             <button type="submit"
-                                class="text-white transition bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Edit</button>
+                                class="text-white transition bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update</button>
                             <button data-modal-hide="edit-modal{{ $activity->id }}" type="button"
-                                class="py-2.5 px-5 ms-3 transition text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100">Tutup</button>
+                                class="py-2.5 px-5 ms-3 transition text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100">Close</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     @endforeach
+
 
     <!-- Main modal -->
     <div id="add-modal" aria-hidden="true" data-modal-backdrop="static"
@@ -270,10 +286,10 @@
                             <input type="text" name="topic_subtopic" placeholder="Masukkan Subtopik"
                                 class="mb-1 transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 required />
-                            <label class="block my-2 text-sm font-medium text-gray-900">Deskripsi Topik</label>
-                            <div id="editor-container" class="h-40 bg-gray-50 border border-gray-300 rounded-lg mb-5">
+                            <label class="block mb-2 text-sm font-medium text-gray-900">Deskripsi Topik</label>
+                            <div id="editor-container-add" class="h-40 bg-gray-50 border border-gray-300 rounded-lg mb-5">
                             </div>
-                            <input type="hidden" name="topic_description" id="hidden-description" />
+                            <input type="hidden" name="topic_description" id="hidden-description-add" />
                         </div>
                         <div class="flex justify-between mt-5">
                             <div class="mb-5">
@@ -330,7 +346,7 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
-                    <a class=" text-white transition bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    <a class="text-white transition bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                         id="deleteButton">Hapus</a>
                     <button data-modal-hide="delete-modal" type="button"
                         class="py-2.5 px-5 ms-3 transition text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-4 focus:ring-gray-100">Tutup</button>
@@ -343,81 +359,106 @@
         $(document).ready(function() {
             $('.delete-btn').click(function() {
                 var teamId = $(this).data('id');
-                var deleteUrl = '/admin/team/delete/' + teamId;
+                var deleteUrl = '/admin/activity/delete/' + teamId;
                 $('#deleteButton').attr('href', deleteUrl);
             });
-        });
-        $("#file_input_add").on("change", function() {
-            const files = $("#file_input_add")[0].files;
-            const previewContainer = $("#image_preview_add");
-            const warningMessage = $("#file_warning");
 
-            if (files.length > 3) {
-                previewContainer.addClass('hidden');
-                warningMessage.removeClass('hidden');
-                alert("You can select only 3 images");
-                $(this).val(''); // Clear the file input
-            } else {
-                warningMessage.addClass('hidden');
-                previewContainer.html('');
-                if (files.length > 0) {
-                    previewContainer.removeClass('hidden');
-                    Array.from(files).forEach(file => {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const img = $('<img>').attr('src', e.target.result).addClass(
-                                'w-full rounded-lg mb-4');
-                            previewContainer.append(img);
-                        }
-                        reader.readAsDataURL(file);
-                    });
-                    $("#imageUploadForm").submit(); // Submit the form if 2 or fewer files are selected
-                } else {
+            $("#file_input_add").on("change", function() {
+                const files = $("#file_input_add")[0].files;
+                const previewContainer = $("#image_preview_add");
+                const warningMessage = $("#file_warning");
+
+                if (files.length > 3) {
                     previewContainer.addClass('hidden');
-                }
-            }
-        });
-        $("#file_input_edit").on("change", function() {
-            const files = $("#file_input_edit")[0].files;
-            const previewContainer = $("#image_preview_edit");
-            const warningMessage = $("#file_warning_edit");
-
-            if (files.length > 3) {
-                previewContainer.addClass('hidden');
-                warningMessage.removeClass('hidden');
-                alert("You can select only 3 images");
-                $(this).val(''); // Clear the file input
-            } else {
-                warningMessage.addClass('hidden');
-                previewContainer.html('');
-                if (files.length > 0) {
-                    previewContainer.removeClass('hidden');
-                    Array.from(files).forEach(file => {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const img = $('<img>').attr('src', e.target.result).addClass(
-                                'w-full rounded-lg mb-4');
-                            previewContainer.append(img);
-                        }
-                        reader.readAsDataURL(file);
-                    });
+                    warningMessage.removeClass('hidden');
+                    alert("You can select only 3 images");
+                    $(this).val(''); // Clear the file input
                 } else {
-                    previewContainer.addClass('hidden');
+                    warningMessage.addClass('hidden');
+                    previewContainer.html('');
+                    if (files.length > 0) {
+                        previewContainer.removeClass('hidden');
+                        Array.from(files).forEach(file => {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                const img = $('<img>').attr('src', e.target.result).addClass(
+                                    'w-full rounded-lg mb-4');
+                                previewContainer.append(img);
+                            }
+                            reader.readAsDataURL(file);
+                        });
+                        $("#imageUploadForm").submit(); // Submit the form if 3 or fewer files are selected
+                    } else {
+                        previewContainer.addClass('hidden');
+                    }
                 }
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var quill = new Quill('#editor-container', {
-                theme: 'snow'
             });
 
-            document.getElementById('add-activity-form').addEventListener('submit', function() {
-                const quill = Quill.find(document.querySelector(`#editor-container`));
-                if (quill) {
-                    document.getElementById(`hidden-description`).value = quill.root.innerHTML;
+            $("#file_input_edit").on("change", function() {
+                const files = $("#file_input_edit")[0].files;
+                const previewContainer = $("#image_preview_edit");
+                const warningMessage = $("#file_warning_edit");
+
+                if (files.length > 3) {
+                    previewContainer.addClass('hidden');
+                    warningMessage.removeClass('hidden');
+                    alert("You can select only 3 images");
+                    $(this).val(''); // Clear the file input
+                } else {
+                    warningMessage.addClass('hidden');
+                    previewContainer.html('');
+                    if (files.length > 0) {
+                        previewContainer.removeClass('hidden');
+                        Array.from(files).forEach(file => {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                const img = $('<img>').attr('src', e.target.result).addClass(
+                                    'w-full rounded-lg mb-4');
+                                previewContainer.append(img);
+                            }
+                            reader.readAsDataURL(file);
+                        });
+                    } else {
+                        previewContainer.addClass('hidden');
+                    }
                 }
             });
+
+            // Initialize Quill for add form
+            if (document.getElementById('editor-container-add')) {
+                var quillAdd = new Quill('#editor-container-add', {
+                    theme: 'snow'
+                });
+
+                document.getElementById('add-activity-form').addEventListener('submit', function() {
+                    document.getElementById('hidden-description-add').value = quillAdd.root.innerHTML;
+                });
+            }
+
+            @foreach ($activities as $activity)
+                var quillEdit{{ $activity->id }} = new Quill('#editor-container-edit-{{ $activity->id }}', {
+                    theme: 'snow',
+                    modules: {
+                        toolbar: [
+                            [{
+                                'header': [1, 2, false]
+                            }],
+                            ['bold', 'italic', 'underline'],
+                            [{
+                                'list': 'ordered'
+                            }, {
+                                'list': 'bullet'
+                            }],
+                            ['link', 'image']
+                        ]
+                    }
+                });
+
+                quillEdit{{ $activity->id }}.on('text-change', function() {
+                    var htmlContent = quillEdit{{ $activity->id }}.root.innerHTML;
+                    $('#hidden-description-edit-{{ $activity->id }}').val(htmlContent);
+                });
+            @endforeach
         });
     </script>
 @endsection

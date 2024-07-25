@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('container')
-    <div class="jumbotron" id="content">
+    <div class="jumbotron w-full mx-auto flex justify-between items-center p-5 relative transition-all duration-200" id="content">
         <div class="main-left mx-[5%] mt-24 bg-white bg-opacity-60 rounded-lg p-10 aura-div ">
             <p class="font-bold">Rasakan kedamaian di Tanah Suci bersama Kami</p>
             <h1 class="title-brand lg:text-6xl md:text-5xl text-3xl my-3 aura-text">
@@ -8,19 +8,15 @@
             </h1>
             <p class="font-bold">Umroh adalah perjalanan hati dan jiwa. Bersama kami, wujudkan umroh impian Anda dengan penuh
                 kenyamanan</p>
-            <a href="/about-us" class="about-anchor"><button class="about-button mt-5 font-bold">Profil Kami</button></a>
+            <a href="/about-us" class="about-anchor"><button class="bg-transparent border-2 border-black py-4 px-8 text-center text-black inline-block text-lg rounded-full w-2/5 mx-auto transition duration-200 hover:bg-[#b70fb9] hover:border-white hover:text-white mt-5 font-bold">Profil Kami</button></a>
         </div>
 
-        <div class="main-right mt-24 mb-8">
+        <div class="main-right mt-28 mb-8">
             <img src="{{ URL::asset('dist/assets/img/kaabah.png') }}" class="custom-background" alt="">
         </div>
     </div>
 
-
-
-
-
-
+    
 
     <div id="custom-controls-gallery" class="relative w-full mt-10 mb-6" data-carousel="slide">
         <!-- Carousel wrapper -->

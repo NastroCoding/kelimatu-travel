@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('container')
     <section id="visimisi">
-        <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 mb-10">
+        <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 mb-10 w-11/12 rounded-xl mx-auto">
             <div class="relative h-32 flex items-center justify-center">
                 <div class="absolute inset-0 bg-fixed bg-center bg-no-repeat bg-cover filter blur z-1"
                     style="background-image: url('{{ URL::asset('dist/assets/img/mecca-background2.jpg') }}');">
@@ -60,7 +60,7 @@
     </section>
 
     <section id="sejarah">
-        <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 my-10">
+        <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 my-10 w-11/12 rounded-xl mx-auto">
             <div class="relative h-32 flex items-center justify-center">
                 <div class="absolute inset-0 bg-fixed bg-center bg-no-repeat bg-cover filter blur z-1"
                     style="background-image: url('{{ URL::asset('dist/assets/img/mecca-background3.jpg') }}');">
@@ -102,7 +102,7 @@
     </section>
 
     <section id="tim">
-        <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 my-10">
+        <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 my-10 w-11/12 rounded-xl mx-auto">
             <div class="relative h-32 flex items-center justify-center">
                 <div class="absolute inset-0 bg-fixed bg-center bg-no-repeat bg-cover filter blur z-1"
                     style="background-image: url('{{ URL::asset('dist/assets/img/person-background.jpg') }}');">

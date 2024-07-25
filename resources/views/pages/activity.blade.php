@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('container')
     <section id="aktifitas">
-        <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 mb-10">
+        <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 mb-10 w-11/12 rounded-xl mx-auto">
             <div class="relative h-28 flex items-center justify-center">
                 <div class="absolute inset-0 bg-fixed bg-center bg-no-repeat bg-cover filter blur z-1"
                     style="background-image: url('{{ URL::asset('dist/assets/img/masjid-nabawi.jpg') }}');">
@@ -22,11 +22,11 @@
                         <div class="relative flex flex-col md:flex-row">
                             <div class="w-full md:w-1/2 h-56 md:h-auto">
                                 @if (is_array($images) && !empty($images))
-                                    <img src="{{ asset('storage/' . $images[0]) }}" class="object-cover w-full h-full"
+                                    <img src="{{ asset('storage/' . $images[0]) }}" class="object-cover w-full h-full lazy"
                                         alt="Activity Image">
                                 @else
                                     <img src="https://via.placeholder.com/600x400?text=No+Image+Available"
-                                        class="object-cover w-full h-full" alt="No Image Available">
+                                        class="object-cover w-full h-full lazy" alt="No Image Available">
                                 @endif
                             </div>
                             <div class="w-full md:w-1/2 p-5 bg-gray-200 text-white flex flex-col justify-between">
@@ -63,7 +63,7 @@
 
 
     <section id="galeri">
-        <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 mb-10">
+        <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 mb-10 w-11/12 rounded-xl mx-auto">
             <div class="relative h-28 flex items-center justify-center">
                 <div class="absolute inset-0 bg-fixed bg-center bg-no-repeat bg-cover filter blur z-1"
                     style="background-image: url('{{ URL::asset('dist/assets/img/camera-background.jpg') }}');">
@@ -82,8 +82,8 @@
                         <a href="#" class="open-modal" data-media="{{ Storage::url($gallery->media) }}"
                             data-type="{{ in_array(pathinfo($gallery->media, PATHINFO_EXTENSION), ['jpeg', 'png', 'jpg', 'gif', 'webp']) ? 'image' : 'video' }}">
                             @if (in_array(pathinfo($gallery->media, PATHINFO_EXTENSION), ['jpeg', 'png', 'jpg', 'gif', 'webp']))
-                                <img class="h-auto max-w-full rounded-t-lg" src="{{ Storage::url($gallery->media) }}"
-                                    alt="" loading="lazy">
+                                <img class="h-auto max-w-full rounded-t-lg lazy" src="{{ Storage::url($gallery->media) }}"
+                                    alt="">
                             @else
                                 <video class="h-auto max-w-full rounded-t-lg" controls>
                                     <source src="{{ Storage::url($gallery->media) }}"
@@ -128,7 +128,7 @@
     </section>
 
     <section id="testimoni">
-        <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 mb-10">
+        <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 mb-10 w-11/12 rounded-xl mx-auto">
             <div class="relative h-28 flex items-center justify-center">
                 <div class="absolute inset-0 bg-fixed bg-center bg-no-repeat bg-cover filter blur z-1"
                     style="background-image: url('{{ URL::asset('dist/assets/img/kaabah-banner2.jpg') }}');">
@@ -147,7 +147,7 @@
                         class="testimonial-item flex-shrink-0 w-full bg-gray-200 p-6 rounded-lg shadow-md flex flex-col items-center text-center relative min-h-[400px]">
                         <img src="{{ $testimonial->image ? Storage::url($testimonial->image) : 'https://via.placeholder.com/100' }}"
                             alt="Aqil"
-                            class="w-16 h-20 rounded-full overflow-hidden border-2 border-gray-200 mb-4 object-cover">
+                            class="lazy w-16 h-20 rounded-full overflow-hidden border-2 border-gray-200 mb-4 object-cover">
                         <h3 class="font-semibold">{{ $testimonial->name }}</h3>
                         <p class="text-gray-500">{{ $testimonial->caption }}</p>
                         <div class="relative mt-2">
@@ -167,6 +167,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            $("img.lazy").lazyload();
             const modal = document.getElementById('media-modal');
             const modalContent = document.getElementById('modal-content');
             const closeModal = document.getElementById('close-modal');
@@ -180,7 +181,8 @@
 
                     let content = '';
                     if (type === 'image') {
-                        content = `<img src="${media}" class="h-auto max-w-full rounded-lg" />`;
+                        content =
+                            `<img src="${media}" class="h-auto max-w-full rounded-lg lazy" />`;
                     } else {
                         content = `
                             <video class="h-auto max-w-full rounded-lg" controls>

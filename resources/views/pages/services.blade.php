@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 mb-10">
+    <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 mb-10 w-11/12 rounded-xl mx-auto">
         <div class="relative h-40 flex items-center justify-center">
             <div class="absolute inset-0 bg-fixed bg-center bg-no-repeat bg-cover filter blur z-1"
                 style="background-image: url('{{ URL::asset('dist/assets/img/servicebackground.jpg') }}');">
@@ -12,7 +12,7 @@
             </h1>
         </div>
     </div>
-    <div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
+    <div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8 w-11/12">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             @foreach ($services as $service)
                 <div class="bg-gradient-to-t from-gray-700 to-[#671282] rounded-lg shadow mx-auto sm:mx-0">
