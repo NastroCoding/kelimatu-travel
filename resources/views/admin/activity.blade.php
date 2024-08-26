@@ -18,98 +18,59 @@
     <button data-modal-target="add-modal" data-modal-toggle="add-modal" type="button"
         class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 transition mb-2 focus:outline-none">Tambah
         Aktifitas</button>
-    <div class="mx-auto grid grid-cols-2 gap-4 items-center mb-10">
-        @foreach ($activities as $activity)
-            @php
-                $images = json_decode($activity->image, true);
-            @endphp
-            <div class="max-w-xl bg-white border border-white rounded-lg shadow-xl mb-5">
-                <div id="gallery-{{ $activity->id }}" class="relative w-full" data-carousel="slide">
-                    <!-- Carousel wrapper -->
-                    <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-                        @if (is_array($images) && !empty($images))
-                            @foreach ($images as $index => $image)
-                                <div class="hidden duration-700 ease-in-out @if ($index == 0) active @endif"
-                                    data-carousel-item>
-                                    <img src="{{ asset('storage/' . $image) }}"
-                                        class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                        alt="Activity Image {{ $index + 1 }}">
-                                </div>
-                            @endforeach
-                        @else
-                            <div class="duration-700 ease-in-out active" data-carousel-item>
+    <div class="flex justify-center">
+        <div class="md:grid gap-4 my-10 w-11/12">
+            @foreach ($activities->sortByDesc('date') as $activity)
+                @php
+                    $images = json_decode($activity->image, true);
+                @endphp
+                <div class="bg-gray-200 shadow-lg rounded-lg mb-5 overflow-hidden">
+                    <div class="relative flex flex-col md:flex-row">
+                        <div class="w-full md:w-1/2 h-56 md:h-auto">
+                            @if (is_array($images) && !empty($images))
+                                <img src="{{ asset('storage/' . $images[0]) }}" class="object-cover w-full h-full lazyload"
+                                    alt="Activity Image">
+                            @else
                                 <img src="https://via.placeholder.com/600x400?text=No+Image+Available"
-                                    class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                    alt="No Image Available">
+                                    class="object-cover w-full h-full lazyload" alt="No Image Available">
+                            @endif
+                        </div>
+                        <div class="w-full md:w-1/2 p-5 bg-gray-200 text-white flex flex-col justify-between">
+                            <div>
+                                <h5 class="mb-2 text-2xl font-bold text-black">{{ $activity->title }}</h5>
+                                <p class="mb-3 text-black">{{ $activity->description }}</p>
                             </div>
-                        @endif
-                    </div>
-                    @if (is_array($images) && count($images) > 1)
-                        <!-- Slider controls -->
-                        <button type="button"
-                            class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                            data-carousel-prev>
-                            <span
-                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M5 1 1 5l4 4" />
-                                </svg>
-                                <span class="sr-only">Previous</span>
-                            </span>
-                        </button>
-                        <button type="button"
-                            class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                            data-carousel-next>
-                            <span
-                                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m1 9 4-4-4-4" />
-                                </svg>
-                                <span class="sr-only">Next</span>
-                            </span>
-                        </button>
-                    @endif
-                </div>
-
-                <div class="p-5">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-                            {{ $activity->title }}</h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700">{{ $activity->description }}</p>
-                    <div class="flex justify-between">
-                        <p class="mb-3 font-normal text-xs text-gray-700">Ditulis Oleh: {{ $activity->trademark }}
-                        </p>
-                        <p class="mb-3 font-normal text-xs text-gray-700">
-                            {{ \Carbon\Carbon::parse($activity->date)->format('d F Y') }}</p>
-                    </div>
-
-                    <button href="#" data-modal-target="edit-modal{{ $activity->id }}"
-                        data-modal-toggle="edit-modal{{ $activity->id }}"
-                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300">
-                        Edit
-                    </button>
-                    <a href="#" data-modal-target="delete-modal" data-modal-toggle="delete-modal"
-                        data-id="{{ $activity->id }}"
-                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center 
+                            <div class="mt-auto">
+                                <div class="flex justify-between text-xs mb-3 text-black">
+                                    <p>Ditulis Oleh: {{ $activity->trademark }}</p>
+                                    @php
+                                        \Carbon\Carbon::setLocale('id');
+                                    @endphp
+                                    <p>{{ \Carbon\Carbon::parse($activity->date)->translatedFormat('l, d F Y') }}</p>
+                                </div>
+                                <button href="#" data-modal-target="edit-modal{{ $activity->id }}"
+                                    data-modal-toggle="edit-modal{{ $activity->id }}"
+                                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 hover:bg-blue-800 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300">
+                                    Edit
+                                </button>
+                                <a href="#" data-modal-target="delete-modal" data-modal-toggle="delete-modal"
+                                    data-id="{{ $activity->id }}"
+                                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center 
                         text-white bg-red-700 hover:bg-red-800 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 delete-btn">
-                        Delete
-                    </a>
-                    <a href="/activity/{{ $activity->slug }}"
-                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 hover:bg-green-800 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300">
-                        Preview
-                    </a>
+                                    Delete
+                                </a>
+                                <a href="/activity/{{ $activity->slug }}"
+                                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 hover:bg-green-800 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300">
+                                    Preview
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        @endforeach
-
-        <!-- Add more cards as needed -->
+            @endforeach
+        </div>
     </div>
-    @foreach ($activities as $activity)
+    @foreach ($activities->sortByDesc('created_at') as $activity)
         @php
             $images = json_decode($activity->image, true);
         @endphp
@@ -164,8 +125,7 @@
                             <div class="mb-5">
                                 <label for="judul" class="block mb-2 text-sm font-medium text-gray-900">Judul
                                     Aktifitas<span class="text-red-700">*</span></label>
-                                <input type="text" id="judul" name="title"
-                                    placeholder="Masukkan Judul Aktifitas"
+                                <input type="text" id="judul" name="title" placeholder="Masukkan Judul Aktifitas"
                                     class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     value="{{ $activity->title }}" required />
                             </div>
@@ -186,7 +146,6 @@
                                 <input type="text" name="topic_subtopic" placeholder="Masukkan Subtopik"
                                     class="mb-1 transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     value="{{ $activity->topic_subtitle }}" required />
-                                <label class="block my-2 text-sm font-medium text-gray-900">Deskripsi Topik</label>
                                 <label class="block mb-2 text-sm font-medium text-gray-900">Deskripsi Topik</label>
                                 <div id="editor-container-edit-{{ $activity->id }}"
                                     class="h-40 bg-gray-50 border border-gray-300 rounded-lg mb-5">{!! $activity->topic_description !!}
@@ -387,7 +346,7 @@
                             }
                             reader.readAsDataURL(file);
                         });
-                        $("#imageUploadForm").submit(); // Submit the form if 3 or fewer files are selected
+                        $("#imageUploadForm").submit();
                     } else {
                         previewContainer.addClass('hidden');
                     }
@@ -424,41 +383,71 @@
                 }
             });
 
+            // Function to initialize Quill with YouTube embed support
+            function initializeQuill(selector) {
+                return new Quill(selector, {
+                    theme: 'snow',
+                    modules: {
+                        toolbar: {
+                            container: [
+                                [{
+                                    'header': [1, 2, false]
+                                }],
+                                ['bold', 'italic', 'underline'],
+                                [{
+                                    'list': 'ordered'
+                                }, {
+                                    'list': 'bullet'
+                                }],
+                                ['link', 'image', 'video'] // Enable video embed button
+                            ],
+                            handlers: {
+                                'video': function() {
+                                    const url = prompt('Enter YouTube URL:');
+                                    if (url) {
+                                        const videoId = getYouTubeVideoId(url);
+                                        if (videoId) {
+                                            const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                                            const range = this.quill.getSelection();
+                                            this.quill.insertEmbed(range.index, 'video', embedUrl);
+                                        } else {
+                                            alert('Invalid YouTube URL');
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Function to extract YouTube video ID from URL
+            function getYouTubeVideoId(url) {
+                const regex =
+                    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+                const matches = url.match(regex);
+                return matches ? matches[1] : null;
+            }
+
             // Initialize Quill for add form
             if (document.getElementById('editor-container-add')) {
-                var quillAdd = new Quill('#editor-container-add', {
-                    theme: 'snow'
-                });
+                var quillAdd = initializeQuill('#editor-container-add');
 
                 document.getElementById('add-activity-form').addEventListener('submit', function() {
                     document.getElementById('hidden-description-add').value = quillAdd.root.innerHTML;
                 });
             }
 
+            // Initialize Quill for each edit form
             @foreach ($activities as $activity)
-                var quillEdit{{ $activity->id }} = new Quill('#editor-container-edit-{{ $activity->id }}', {
-                    theme: 'snow',
-                    modules: {
-                        toolbar: [
-                            [{
-                                'header': [1, 2, false]
-                            }],
-                            ['bold', 'italic', 'underline'],
-                            [{
-                                'list': 'ordered'
-                            }, {
-                                'list': 'bullet'
-                            }],
-                            ['link', 'image']
-                        ]
-                    }
-                });
+                var quillEdit{{ $activity->id }} = initializeQuill('#editor-container-edit-{{ $activity->id }}');
 
                 quillEdit{{ $activity->id }}.on('text-change', function() {
                     var htmlContent = quillEdit{{ $activity->id }}.root.innerHTML;
                     $('#hidden-description-edit-{{ $activity->id }}').val(htmlContent);
                 });
             @endforeach
+
         });
     </script>
 @endsection

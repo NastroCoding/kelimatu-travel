@@ -2,12 +2,12 @@
 
 @section('container')
 
-    <div class="container mx-auto">
+    <div class="container mx-auto w-11/12">
         <div class=" p-8 ">
             <h1 class="text-3xl font-bold mb-8 text-center">Kontak Kami</h1>
 
             <!-- Contact Methods -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+            <div class="grid grid-cols-2 md:grid-cols-2 max-[768px]:grid-cols-1 gap-6 mb-8">
                 <div class="bg-gray-100 flex flex-col p-8 rounded-md items-center shadow-md">
                     <div class="text-4xl text-[#671282] mb-4">
                         <i class="fa-solid fa-location-dot"></i>

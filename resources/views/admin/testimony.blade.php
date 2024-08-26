@@ -89,7 +89,7 @@
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4 p-4">
         <!-- Testimonial Card 3 -->
-        @foreach ($testimonials as $testimony)
+        @foreach ($testimonials->sortByDesc('created_at') as $testimony)
             <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
                 <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-200 mb-4">
                     <img src="{{ $testimony->image ? Storage::url($testimony->image) : 'https://via.placeholder.com/100' }}"

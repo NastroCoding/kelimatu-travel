@@ -19,7 +19,7 @@
         class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 transition mb-2 focus:outline-none">Tambah
         Tim</button>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-        @foreach ($teams as $team)
+        @foreach ($teams->sortByDesc('created_at') as $team)
             <div class="p-4">
                 <div class="w-full bg-white border border-gray-200 rounded-lg shadow">
                     <div class="flex flex-col items-center pb-10 pt-4">

@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 mb-10 w-11/12 rounded-xl mx-auto">
-        <div class="relative h-40 flex items-center justify-center">
+        <div class="relative h-28 flex items-center justify-center">
             <div class="absolute inset-0 bg-fixed bg-center bg-no-repeat bg-cover filter blur z-1"
                 style="background-image: url('{{ URL::asset('dist/assets/img/servicebackground.jpg') }}');">
             </div>
@@ -35,7 +35,7 @@
                         </div>
                         @endforeach
 
-                        <p class="mb-1 ml-1 text-white font-bold"> Rp {{ number_format($service->price, 0, ',', '.') }} </p>
+                        <p class="mb-1 ml-1 text-white font-bold"> Rp {{ number_format($service->price, 0, ',', '.') . ',00' }} </p>
 
                         <a style="cursor: pointer;" data-modal-target="extralarge-modal{{ $service->id }}"
                             data-modal-toggle="extralarge-modal{{ $service->id }}"

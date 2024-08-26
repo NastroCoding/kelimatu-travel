@@ -18,7 +18,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
-
 </head>
 
 <body>
@@ -29,10 +28,10 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-center">
                     <!-- Container with background color and opacity -->
-                    <div class="bg-white rounded-xl p-1 glow-effect">
+                    <div class="">
                         <!-- Logo with original classes -->
-                        <img class="w-8 sm:w-10 md:w-12 lg:w-16 xl:w-18 max-w-full max-h-full h-auto"
-                            src="{{ URL::asset('dist/assets/img/kelimatu_logo.png') }}"
+                        <img class="w-8 sm:w-10 md:w-12 lg:w-16 xl:w-18 max-w-full max-h-full h-auto custom-background"
+                            src="{{ URL::asset('dist/assets/img/kaabah.png') }}"
                             alt="Kelimatu Travel & Tours Logo">
                     </div>
 
@@ -63,8 +62,6 @@
                                 & Misi</a>
                             <a href="/about-us#sejarah"
                                 class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Sejarah</a>
-                            <a href="/about-us#galeri"
-                                class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Galeri</a>
                             <a href="/about-us#tim"
                                 class="block px-4 py-2 text-sm text-[#671282] rounded-md hover:rounded-md font-bold hover:text-[#fff] transition hover:bg-[#671282]">Tim</a>
                         </div>
@@ -102,20 +99,18 @@
                 </div>
                 <!-- About with Dropdown -->
                 <div class="relative">
-                    <button id="about-button"
-                        class="text-white font-bold transition hover:text-gray-200">Profil</button>
+                    <a id="about-button" href="/about-us"
+                        class="text-white font-bold transition hover:text-gray-200">Profil</a>
                     <div id="about-dropdown"
                         class="hidden flex flex-col space-y-2 mt-2 bg-[#d7cbbf] rounded-md shadow-lg p-2">
                         <a href="/about-us" class="text-white font-bold transition hover:text-gray-200">Visi & Misi</a>
                         <a href="/about-us#sejarah"
                             class="text-white font-bold transition hover:text-gray-200">Sejarah</a>
-                        <a href="/about-us#galeri"
-                            class="text-white font-bold transition hover:text-gray-200">Galeri</a>
                         <a href="/about-us#tim" class="text-white font-bold transition hover:text-gray-200">Tim</a>
                     </div>
                 </div>
 
-                <a href="#" class="text-white font-bold transition hover:text-gray-200"> Paket Layanan </a>
+                <a href="/services" class="text-white font-bold transition hover:text-gray-200"> Paket Layanan </a>
                 <a href="/contact-us" class="text-white font-bold transition hover:text-gray-200">Kontak</a>
             </div>
         </nav>
@@ -126,8 +121,56 @@
         @yield('container')
     </section>
 
+
+
+    <!-- Toggle Button -->
+    <div class="fixed bottom-10 right-0 m-4 z-50">
+        <button id="toggleButton"
+            class="bg-green-500 text-white p-4 rounded-full shadow-lg flex items-center space-x-2 focus:outline-none animate__animated animate__bounceIn">
+            <i class="fa-brands fa-whatsapp text-2xl"></i>
+            <span>Chat Dengan Kami</span>
+        </button>
+    </div>
+
+    <!-- WhatsApp Popup -->
+    <div id="whatsappPopup"
+        class="fixed bottom-28 right-0 m-4 flex flex-col items-end space-y-2 hidden animate__animated animate__fadeInUp z-[60]">
+        <div class="bg-white shadow-lg rounded-lg p-4 flex items-center space-x-2">
+            <div class="flex items-center space-x-2">
+                <div class="text-green-500">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                </div>
+                <div>
+                    <span class="block font-medium">CS 1</span>
+                    <span class="block text-sm text-gray-500">0{{ $configs->whatsapp_num }}</span>
+                </div>
+            </div>
+            <a href="https://wa.me/62{{ $configs->whatsapp_num }}" target="_blank"
+                class="bg-green-500 text-white rounded-lg px-2 py-1">CHAT</a>
+        </div>
+        @if ($configs->whatsapp_num2)
+            <div class="bg-white shadow-lg rounded-lg p-4 flex items-center space-x-2">
+                <div class="flex items-center space-x-2">
+                    <div class="text-green-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 10h2l2-4h6l2 4h2m-6 8a9 9 0 100-18 9 9 0 000 18zm3-13.5h-6m6 0a7.5 7.5 0 01-7.5 7.5m7.5-7.5H12m0 0V12" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="block font-medium">CS 2</span>
+                        <span class="block text-sm text-gray-500">081287935940</span>
+                    </div>
+                </div>
+                <a href="https://wa.me/081287935940" target="_blank"
+                    class="bg-green-500 text-white rounded-lg px-2 py-1">CHAT</a>
+            </div>
+        @endif
+    </div>
+    
     <button type="button" data-twe-ripple-init data-twe-ripple-color="light"
-        class="!fixed bottom-5 end-5 hidden rounded-full bg-[#671282] p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-[#b70fb9] hover:shadow-lg focus:bg-[#b70fb9] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#b70fb9] active:shadow-lg z-10"
+        class="!fixed bottom-32 end-5 z-50 hidden rounded-full bg-[#671282] p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-[#b70fb9] hover:shadow-lg focus:bg-[#b70fb9] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#b70fb9] active:shadow-lg z-10"
         id="btn-back-to-top">
         <span class="[&>svg]:w-4">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3"
@@ -241,6 +284,16 @@
 <script src="https://kit.fontawesome.com/a05b563fe6.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 <script>
+    document.getElementById('toggleButton').addEventListener('click', function() {
+        var popup = document.getElementById('whatsappPopup');
+        if (popup.classList.contains('hidden')) {
+            popup.classList.remove('hidden');
+            popup.classList.add('animate__fadeInUp');
+        } else {
+            popup.classList.add('hidden');
+            popup.classList.remove('animate__fadeInUp');
+        }
+    });
     document.getElementById('menu-button').addEventListener('click', () => {
         const mobileMenu = document.getElementById('mobile-menu');
         mobileMenu.classList.toggle('hidden');

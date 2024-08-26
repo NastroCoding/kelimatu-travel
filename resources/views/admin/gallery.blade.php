@@ -65,14 +65,15 @@
                 });
             @endphp
 
-            @foreach ($landscapeMedia as $gallery)
-                <div class="relative">
-                    <a href="{{ Storage::url($gallery->media) }}">
+            @foreach ($landscapeMedia->sortByDesc('created_at') as $gallery)
+                <div class="relative bg-gray-200 shadow-lg rounded-lg overflow-hidden">
+                    <a href="#" class="open-modal" data-media="{{ Storage::url($gallery->media) }}"
+                        data-type="{{ in_array(pathinfo($gallery->media, PATHINFO_EXTENSION), ['jpeg', 'png', 'jpg', 'gif', 'webp']) ? 'image' : 'video' }}">
                         @if (in_array(pathinfo($gallery->media, PATHINFO_EXTENSION), ['jpeg', 'png', 'jpg', 'gif', 'webp']))
-                            <img class="h-auto max-w-full rounded-lg" src="{{ Storage::url($gallery->media) }}"
-                                alt="" loading="lazy">
+                            <img class="h-auto max-w-full rounded-t-lg lazyload" src="{{ Storage::url($gallery->media) }}"
+                                alt="">
                         @else
-                            <video class="h-auto max-w-full rounded-lg" controls>
+                            <video class="h-auto max-w-full rounded-t-lg" controls>
                                 <source src="{{ Storage::url($gallery->media) }}"
                                     type="video/{{ pathinfo($gallery->media, PATHINFO_EXTENSION) }}">
                                 Your browser does not support the video tag.
@@ -83,17 +84,23 @@
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </a>
+                    @if (!empty($gallery->description))
+                        <div class="p-4">
+                            <p class="text-sm text-gray-600">{{ $gallery->description }}</p>
+                        </div>
+                    @endif
                 </div>
             @endforeach
 
-            @foreach ($portraitMedia as $gallery)
-                <div class="relative">
-                    <a href="{{ Storage::url($gallery->media) }}">
+            @foreach ($portraitMedia->sortByDesc('created_at') as $gallery)
+                <div class="relative bg-gray-200 shadow-lg rounded-lg overflow-hidden">
+                    <a href="#" class="open-modal" data-media="{{ Storage::url($gallery->media) }}"
+                        data-type="{{ in_array(pathinfo($gallery->media, PATHINFO_EXTENSION), ['jpeg', 'png', 'jpg', 'gif', 'webp']) ? 'image' : 'video' }}">
                         @if (in_array(pathinfo($gallery->media, PATHINFO_EXTENSION), ['jpeg', 'png', 'jpg', 'gif', 'webp']))
-                            <img class="h-auto max-w-full rounded-lg" src="{{ Storage::url($gallery->media) }}"
-                                alt="" loading="lazy">
+                            <img class="h-auto max-w-full rounded-t-lg lazyload" src="{{ Storage::url($gallery->media) }}"
+                                alt="">
                         @else
-                            <video class="h-auto max-w-full rounded-lg" controls>
+                            <video class="h-auto max-w-full rounded-t-lg" controls>
                                 <source src="{{ Storage::url($gallery->media) }}"
                                     type="video/{{ pathinfo($gallery->media, PATHINFO_EXTENSION) }}">
                                 Your browser does not support the video tag.
@@ -105,10 +112,16 @@
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </a>
+                    @if (!empty($gallery->description))
+                        <div class="p-4">
+                            <p class="text-sm text-gray-600">{{ $gallery->description }}</p>
+                        </div>
+                    @endif
                 </div>
             @endforeach
         </div>
     </div>
+
 
 
     <!-- Main modal -->
@@ -150,9 +163,9 @@
                         </div>
                         <div class="mb-5">
                             <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
-                        <input type="text" id="description" name="description"
-                            placeholder="Deskripsi kecil ... Contoh : Masjid Nabawi 17/8/24"
-                            class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+                            <input type="text" id="description" name="description"
+                                placeholder="Deskripsi kecil ... Contoh : Masjid Nabawi 17/8/24"
+                                class="transition shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
                             <span class="text-red-700 text-sm font-medium">* opsional</span>
                         </div>
                         <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">

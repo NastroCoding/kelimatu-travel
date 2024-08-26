@@ -22,7 +22,7 @@
     <div class="flex flex-col sm:flex-row sm:justify-evenly sm:space-x-4 space-y-4 sm:space-y-0">
         <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4">
             <!-- Card 1 -->
-            @foreach ($services as $service)
+            @foreach ($services->sortByDesc('created_at') as $service)
                 <div
                     class="bg-gradient-to-t from-gray-700 to-[#671282] border border-gray-200 rounded-lg shadow max-w-sm mx-auto sm:mx-0">
                     <img class="rounded-t-lg w-full"

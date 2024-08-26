@@ -56,7 +56,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($mails as $mail)
+                @foreach ($mails->sortByDesc('created_at') as $mail)
                     <tr class="bg-white border-b hover:bg-gray-50">
                         <td class="w-4 p-4">
                             <div class="flex items-center">

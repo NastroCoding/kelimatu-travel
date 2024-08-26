@@ -167,15 +167,10 @@ a {
 }
 
 .custom-background {
-    background: linear-gradient(#b70fb9, #671282);
-    border-radius: 100px 1000px 100px 2100px;
     height: 100%;
     max-width: 450px;
     z-index: 1;
     transition: 0.2s;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 54px 55px,
-        rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-        rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .banner {

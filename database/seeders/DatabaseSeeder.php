@@ -35,6 +35,19 @@ class DatabaseSeeder extends Seeder
             Minggu, 09.00 - 12.00',
             'gmail' => 'khighlevel@gmail.com',
             'instagram' => 'kelimatutraveltour',
+            'title_info' => 'Umroh Adalah',
+            'info' => "Umrah secara bahasa bisa diartikan berziarah. Sedangkan menurut istilah, umroh adalah menyengaja menuju Ka'bah untuk melaksanakan ibadah tertentu.
+
+Dalam syariat Islam, Umroh adalah berkunjung ke Baitullah atau (Masjidil Haram) dengan tujuan untuk mendekatkan diri kepada Sang Khalik yakni Allah SWT dengan memenuhi seluruh syarat-syaratnya, serta waktu tak ditentukan pada seperti ibadah haji.",
+            'title_info2' => 'Mengapa Harus Umroh?',
+            'info2' => "Mayoritas penduduk Indonesia adalah muslim. Sudah barang tentu, setiap seorang muslim sangat mendambakan dan merindukan untuk bisa pergi ke Tanah Suci melaksanakan umroh maupun haji.
+
+Umumnya masyarakat Indonesia memilih untuk menunaikan ibadah umroh terlebih dahulu, dikarenakan panjangnya antrian untuk bisa melakukan ibadah haji di Indonesia
+
+Bagi sebagian masyarakat muslim di Indonesia melaksankan ibadah umroh bukan hanya diperuntukan bagi orang-orang yang mampu saja. Tapi yakinlah bahwa Allah SWT akan memampukan orang-orang yang terpanggil untuk berumroh.
+
+Untuk bisa menjadi yang terpanggil tentunya niat saja tidak cukup. Kita harus awali dengan memantaskan diri agar diterima dan bisa menjadi Tamu Allah. Caranya yaitu mengiringinya dengan keinginan yang kuat, berdoa setiap waktu, dan ditambah dengan ikhtiar tindakan atau usaha kita dalam mewujudkannya.",
+                'quote' => '"Kalau Allah sudah memanggil, kalau Allah sudah mengundang, dengan cara apapun kita pasti akan mengunjunginya, Insyaa Allah kita akan dimudahkan hadir ke Baitullah"'
         ]);
     }
 }

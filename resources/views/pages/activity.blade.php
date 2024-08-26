@@ -22,11 +22,11 @@
                         <div class="relative flex flex-col md:flex-row">
                             <div class="w-full md:w-1/2 h-56 md:h-auto">
                                 @if (is_array($images) && !empty($images))
-                                    <img src="{{ asset('storage/' . $images[0]) }}" class="object-cover w-full h-full lazy"
-                                        alt="Activity Image">
+                                    <img src="{{ asset('storage/' . $images[0]) }}"
+                                        class="object-cover w-full h-full lazyload" alt="Activity Image">
                                 @else
                                     <img src="https://via.placeholder.com/600x400?text=No+Image+Available"
-                                        class="object-cover w-full h-full lazy" alt="No Image Available">
+                                        class="object-cover w-full h-full lazyload" alt="No Image Available">
                                 @endif
                             </div>
                             <div class="w-full md:w-1/2 p-5 bg-gray-200 text-white flex flex-col justify-between">
@@ -61,7 +61,6 @@
 
     </section>
 
-
     <section id="galeri">
         <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 mb-10 w-11/12 rounded-xl mx-auto">
             <div class="relative h-28 flex items-center justify-center">
@@ -73,59 +72,89 @@
                     Galeri
                 </h1>
             </div>
-        </div>
-
-        <div class="w-3/4 mx-auto mb-10">
-            <div class="grid md:grid-cols-3 gap-4">
-                @foreach ($galleries as $gallery)
-                    <div class="relative bg-gray-200 shadow-lg rounded-lg overflow-hidden">
-                        <a href="#" class="open-modal" data-media="{{ Storage::url($gallery->media) }}"
-                            data-type="{{ in_array(pathinfo($gallery->media, PATHINFO_EXTENSION), ['jpeg', 'png', 'jpg', 'gif', 'webp']) ? 'image' : 'video' }}">
-                            @if (in_array(pathinfo($gallery->media, PATHINFO_EXTENSION), ['jpeg', 'png', 'jpg', 'gif', 'webp']))
-                                <img class="h-auto max-w-full rounded-t-lg lazy" src="{{ Storage::url($gallery->media) }}"
-                                    alt="">
-                            @else
-                                <video class="h-auto max-w-full rounded-t-lg" controls>
-                                    <source src="{{ Storage::url($gallery->media) }}"
-                                        type="video/{{ pathinfo($gallery->media, PATHINFO_EXTENSION) }}">
-                                    Your browser does not support the video tag.
-                                </video>
+    
+            <div class="w-3/4 mx-auto my-10">
+                <div id="gallery-container" class="grid md:grid-cols-3 gap-4">
+                    @foreach ($galleries->sortByDesc('created_at')->take(6) as $gallery)
+                        <div class="relative bg-gray-200 shadow-lg rounded-lg overflow-hidden">
+                            <a href="#" class="open-modal" data-media="{{ Storage::url($gallery->media) }}"
+                                data-type="{{ in_array(pathinfo($gallery->media, PATHINFO_EXTENSION), ['jpeg', 'png', 'jpg', 'gif', 'webp']) ? 'image' : 'video' }}"
+                                data-description="{{ $gallery->description }}">
+                                <div class="aspect-w-16">
+                                    @if (in_array(pathinfo($gallery->media, PATHINFO_EXTENSION), ['jpeg', 'png', 'jpg', 'gif', 'webp']))
+                                        <img src="{{ Storage::url($gallery->media) }}" class="aspect-content rounded-t-lg lazyload"
+                                            alt="">
+                                    @else
+                                        <video class="aspect-content rounded-t-lg" controls>
+                                            <source src="{{ Storage::url($gallery->media) }}"
+                                                type="video/{{ pathinfo($gallery->media, PATHINFO_EXTENSION) }}">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    @endif
+                                </div>
+                            </a>
+                            @if (!empty($gallery->description))
+                                <div class="p-4">
+                                    <p class="text-sm text-gray-600">{{ $gallery->description }}</p>
+                                </div>
                             @endif
-                        </a>
-                        @if (!empty($gallery->description))
-                            <div class="p-4">
-                                <p class="text-sm text-gray-600">{{ $gallery->description }}</p>
-                            </div>
-                        @endif
-                    </div>
-                @endforeach
-            </div>
-        </div>
-
-        <div id="media-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 hidden z-50">
-            <div class="relative bg-gray-200 p-4 rounded-lg max-w-3xl w-full max-h-screen overflow-auto">
-                <button id="close-modal" class="absolute top-4 right-4 text-black">X</button>
-                <div id="modal-content" class="flex flex-col items-center justify-center">
-                    <!-- Content will be inserted here via JavaScript -->
+                        </div>
+                    @endforeach
+                </div>
+                <div class="text-center mt-4">
+                    <button id="load-more" class="bg-blue-500 text-white px-4 py-2 rounded">Lihat Foto Lainnya</button>
                 </div>
             </div>
+    
+            <div id="media-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 hidden z-50">
+                <div class="relative bg-gray-200 p-4 rounded-lg max-w-3xl w-full max-h-screen overflow-auto">
+                    <button id="close-modal" class="absolute top-4 right-4 text-black">X</button>
+                    <div id="modal-content" class="flex flex-col items-center justify-center">
+                        <!-- Content will be inserted here via JavaScript -->
+                    </div>
+                </div>
+            </div>
+    
+            <style>
+                #modal-content img,
+                #modal-content video {
+                    max-width: 100%;
+                    max-height: 80vh;
+                    object-fit: contain;
+                }
+    
+                #modal-content p {
+                    margin-top: 1rem;
+                    color: #4A5568;
+                }
+    
+                .aspect-w-16 {
+                    position: relative;
+                    width: 100%;
+                }
+    
+                .aspect-w-16::before {
+                    content: '';
+                    display: block;
+                    padding-top: 56.25%;
+                    /* 16:9 aspect ratio */
+                }
+    
+                .aspect-w-16>.aspect-content {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    /* Use 'cover' to maintain aspect ratio and cover the area, 'contain' if you want to fit inside */
+                }
+            </style>
         </div>
-
-        <style>
-            #modal-content img,
-            #modal-content video {
-                max-width: 100%;
-                max-height: 80vh;
-                object-fit: contain;
-            }
-
-            #modal-content p {
-                margin-top: 1rem;
-                color: #4A5568;
-            }
-        </style>
-
     </section>
+    
 
     <section id="testimoni">
         <div class="bg-gray-700 border border-gray-200 dark:border-gray-700 mb-10 w-11/12 rounded-xl mx-auto">
@@ -141,13 +170,13 @@
         </div>
 
         <div class="w-5/6 mx-auto mb-10">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                @foreach ($testimonials as $testimonial)
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
+                @foreach ($testimonials->sortByDesc('created_at') as $testimonial)
                     <div
                         class="testimonial-item flex-shrink-0 w-full bg-gray-200 p-6 rounded-lg shadow-md flex flex-col items-center text-center relative min-h-[400px]">
                         <img src="{{ $testimonial->image ? Storage::url($testimonial->image) : 'https://via.placeholder.com/100' }}"
                             alt="Aqil"
-                            class="lazy w-16 h-20 rounded-full overflow-hidden border-2 border-gray-200 mb-4 object-cover">
+                            class="lazyload w-16 h-20 rounded-full overflow-hidden border-2 border-gray-200 mb-4 object-cover">
                         <h3 class="font-semibold">{{ $testimonial->name }}</h3>
                         <p class="text-gray-500">{{ $testimonial->caption }}</p>
                         <div class="relative mt-2">
@@ -161,35 +190,33 @@
                 @endforeach
             </div>
         </div>
-
-
     </section>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            $("img.lazy").lazyload();
             const modal = document.getElementById('media-modal');
             const modalContent = document.getElementById('modal-content');
             const closeModal = document.getElementById('close-modal');
 
-            document.querySelectorAll('.open-modal').forEach(item => {
-                item.addEventListener('click', event => {
+            // Event delegation for dynamically added items
+            document.addEventListener('click', event => {
+                if (event.target.closest('.open-modal')) {
                     event.preventDefault();
-                    const media = event.currentTarget.getAttribute('data-media');
-                    const type = event.currentTarget.getAttribute('data-type');
-                    const description = event.currentTarget.getAttribute('data-description');
+                    const item = event.target.closest('.open-modal');
+                    const media = item.getAttribute('data-media');
+                    const type = item.getAttribute('data-type');
+                    const description = item.getAttribute('data-description');
 
                     let content = '';
                     if (type === 'image') {
-                        content =
-                            `<img src="${media}" class="h-auto max-w-full rounded-lg lazy" />`;
+                        content = `<img src="${media}" class="h-auto max-w-full rounded-lg" />`;
                     } else {
                         content = `
-                            <video class="h-auto max-w-full rounded-lg" controls>
-                                <source src="${media}" type="video/${media.split('.').pop()}">
-                                Your browser does not support the video tag.
-                            </video>
-                        `;
+                    <video class="h-auto max-w-full rounded-lg" controls>
+                        <source src="${media}" type="video/${media.split('.').pop()}">
+                        Your browser does not support the video tag.
+                    </video>
+                `;
                     }
 
                     if (description) {
@@ -198,7 +225,7 @@
 
                     modalContent.innerHTML = content;
                     modal.classList.remove('hidden');
-                });
+                }
             });
 
             closeModal.addEventListener('click', () => {
@@ -209,6 +236,47 @@
                 if (event.target === modal) {
                     modal.classList.add('hidden');
                 }
+            });
+
+            let currentIndex = 6; // Initial number of images loaded
+            const loadMoreButton = document.getElementById('load-more');
+
+            loadMoreButton.addEventListener('click', () => {
+                fetch(`/load-more-galleries?start=${currentIndex}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const galleryContainer = document.getElementById('gallery-container');
+                        data.galleries.forEach(gallery => {
+                            const mediaType = ['jpeg', 'png', 'jpg', 'gif', 'webp'].includes(
+                                gallery.extension) ? 'image' : 'video';
+                            const mediaElement = mediaType === 'image' ?
+                                `<div class="aspect-w-16">
+                            <img class="aspect-content rounded-t-lg" src="${gallery.media}" alt="">
+                        </div>` :
+                                `<div class="aspect-w-16">
+                            <video class="aspect-content rounded-t-lg" controls>
+                                <source src="${gallery.media}" type="video/${gallery.extension}">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>`;
+
+                            const galleryItem = document.createElement('div');
+                            galleryItem.classList.add('relative', 'bg-gray-200', 'shadow-lg',
+                                'rounded-lg', 'overflow-hidden');
+                            galleryItem.innerHTML = `
+                        <a href="#" class="open-modal" data-media="${gallery.media}" data-type="${mediaType}" data-description="${gallery.description}">
+                            ${mediaElement}
+                        </a>
+                        ${gallery.description ? `<div class="p-4"><p class="text-sm text-gray-600">${gallery.description}</p></div>` : ''}
+                    `;
+                            galleryContainer.appendChild(galleryItem);
+                        });
+
+                        currentIndex += data.galleries.length;
+                        if (!data.hasMore) {
+                            loadMoreButton.style.display = 'none';
+                        }
+                    });
             });
         });
     </script>

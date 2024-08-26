@@ -34,25 +34,25 @@
                 role="tabpanel" aria-labelledby="stats-tab">
                 <h1 class="text-3xl text-white font-bold text-center my-2"> Nilai Nilai Kelimatu </h1>
                 <dl
-                    class="grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto text-gray-900 sm:grid-cols-3 xl:grid-cols-5 dark:text-white sm:p-8">
-                    <div class="flex flex-col items-center justify-center">
-                        <dt class="mb-2 text-3xl text-white font-extrabold"><i class="fa-solid fa-user-tie"></i></dt>
+                    class="sm:grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto text-gray-900 sm:grid-cols-3 xl:grid-cols-5 dark:text-white sm:p-8">
+                    <div class="flex flex-col items-center justify-center mb-2">
+                        <dt class="sm:mb-2 text-3xl text-white font-extrabold"><i class="fa-solid fa-user-tie"></i></dt>
                         <dd class="text-white font-extrabold">Profesional</dd>
                     </div>
-                    <div class="flex flex-col items-center justify-center">
-                        <dt class="mb-2 text-3xl text-white font-extrabold"><i class="fa-solid fa-gear"></i></dt>
+                    <div class="flex flex-col items-center justify-center mb-2">
+                        <dt class="sm:mb-2 text-3xl text-white font-extrabold"><i class="fa-solid fa-gear"></i></dt>
                         <dd class="text-white font-extrabold">Integritas</dd>
                     </div>
-                    <div class="flex flex-col items-center justify-center">
-                        <dt class="mb-2 text-3xl text-white font-extrabold"><i class="fa-solid fa-handshake"></i></dt>
+                    <div class="flex flex-col items-center justify-center mb-2">
+                        <dt class="sm:mb-2 text-3xl text-white font-extrabold"><i class="fa-solid fa-handshake"></i></dt>
                         <dd class="text-white font-extrabold">Jujur</dd>
                     </div>
-                    <div class="flex flex-col items-center justify-center">
-                        <dt class="mb-2 text-3xl text-white font-extrabold"><i class="fa-solid fa-scale-balanced"></i></dt>
+                    <div class="flex flex-col items-center justify-center mb-2">
+                        <dt class="sm:mb-2 text-3xl text-white font-extrabold"><i class="fa-solid fa-scale-balanced"></i></dt>
                         <dd class="text-white font-extrabold">Adil Peduli</dd>
                     </div>
-                    <div class="flex flex-col items-center justify-center">
-                        <dt class="mb-2 text-3xl text-white font-extrabold"><i class="fa-solid fa-lock"></i></dt>
+                    <div class="flex flex-col items-center justify-center mb-2">
+                        <dt class="sm:mb-2 text-3xl text-white font-extrabold"><i class="fa-solid fa-lock"></i></dt>
                         <dd class="text-white font-extrabold">Komitmen</dd>
                     </div>
                 </dl>

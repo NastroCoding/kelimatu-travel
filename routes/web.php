@@ -20,6 +20,7 @@ use Mews\Captcha\Captcha;
 
 Route::get('captcha/{config?}', [Captcha::class, 'create'])->name('captcha');
 Route::get('/admin/mails', [MailController::class, 'index'])->name('mails.index');
+Route::get('/load-more-galleries', [RouteController::class, 'loadMoreGalleries']);
 
 Route::controller(RouteController::class)->group(function(){
 
@@ -93,6 +94,10 @@ Route::middleware('auth')->group(function(){
 
         Route::controller(ConfigController::class)->group(function(){
             Route::post('/config/update/{id}', 'update');
+            Route::post('/config/items', 'item_add');
+            Route::post('/config/slideshow', 'slide_add');
+            Route::get('/config/slideshow/delete/{id}', 'slide_destroy');
+            Route::get('/config/item/delete/{id}', 'destroy');
         });
     });
 });

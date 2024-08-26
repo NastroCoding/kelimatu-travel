@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 
 class GalleryController extends Controller
@@ -14,7 +15,6 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        
     }
 
     /**
@@ -32,13 +32,13 @@ class GalleryController extends Controller
 
                 $path = $file->storeAs('gallery_media', $filename, 'public');
 
-                
+
                 if (in_array($file->getClientOriginalExtension(), ['jpeg', 'png', 'jpg', 'gif', 'webp'])) {
                     $optimizerChain = OptimizerChainFactory::create();
                     $optimizerChain->optimize(storage_path('app/public/' . $path));
                 }
 
-                
+
                 Gallery::create([
                     'description' => $request->description,
                     'media' => $path,
@@ -50,12 +50,12 @@ class GalleryController extends Controller
         return redirect()->back()->with('success', 'Gambar galeri berhasil ditambahkan dan dioptimalkan!');
     }
 
+    
     /**
      * Display the specified resource.
      */
     public function show(Gallery $gallery)
     {
-        
     }
 
     /**
@@ -63,7 +63,6 @@ class GalleryController extends Controller
      */
     public function update(Request $request, Gallery $gallery)
     {
-        
     }
 
     /**
@@ -71,15 +70,15 @@ class GalleryController extends Controller
      */
     public function destroy($id)
     {
-        
+
         $gallery = Gallery::find($id);
-        
+
         if (!$gallery) {
             return back()->with('error', 'Foto galeri tidak ditemukan!');
         }
         $filePath = storage_path('app/public/' . $gallery->media);
         if (file_exists($filePath)) {
-            unlink($filePath); 
+            unlink($filePath);
         }
         $gallery->delete();
 

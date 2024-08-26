@@ -12,9 +12,12 @@ use App\Models\ServiceDetail;
 use App\Models\ServiceOption;
 use App\Models\Team;
 use App\Models\Testimonial;
+use App\Models\Item;
+use App\Models\Slideshow;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail as FacadesMail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class RouteController extends Controller
@@ -23,9 +26,15 @@ class RouteController extends Controller
     {
         $configs = Config::latest()->first();
         $testimonials = Testimonial::all();
+        $items = Item::all();
+        $slideshows = Slideshow::all();
+        $activities = Activity::all();
         return view('pages.index', [
             'page'  => 'Index',
-            'testimonials' => $testimonials
+            'testimonials' => $testimonials,
+            'items' => $items,
+            'slideshows' => $slideshows,
+            'activities' => $activities
         ], compact('configs'));
     }
 
@@ -79,13 +88,33 @@ class RouteController extends Controller
         ], compact('configs'));
     }
 
+    public function loadMoreGalleries(Request $request)
+    {
+        $start = $request->query('start', 0);
+        $limit = 6; // Number of images to load each time
+
+        $galleries = Gallery::orderBy('created_at', 'desc')->skip($start)->take($limit)->get();
+
+        return response()->json([
+            'galleries' => $galleries->map(function ($gallery) {
+                return [
+                    'media' => Storage::url($gallery->media),
+                    'extension' => pathinfo($gallery->media, PATHINFO_EXTENSION),
+                    'description' => $gallery->description,
+                ];
+            }),
+            'hasMore' => $galleries->count() === $limit,
+        ]);
+    }
+
+
     public function read($slug)
     {
         $configs = Config::latest()->first();
         $galleries = Gallery::all();
         $testimonials = Testimonial::all();
 
-        if(!$slug) {
+        if (!$slug) {
             return redirect()->back();
         }
 
@@ -93,8 +122,8 @@ class RouteController extends Controller
 
         $all_activities = Activity::all();
 
-        if(!$activities) {
-            return view('404', [ 'configs' => $configs ]);
+        if (!$activities) {
+            return view('404', ['configs' => $configs]);
         }
 
         return view('pages.activity-read', [
@@ -175,8 +204,14 @@ class RouteController extends Controller
     public function admin_config()
     {
         $configs = Config::latest()->first();
+        $items = Item::all();
+        $galleries = Gallery::all();
+        $slideshows = SlideShow::all();
         return view('admin.config', [
             'page' => 'Configuration',
+            'items' => $items,
+            'galleries' => $galleries,
+            'slideshows'=> $slideshows,
         ], compact('configs'));
     }
 
